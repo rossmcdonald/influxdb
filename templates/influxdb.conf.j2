@@ -1,0 +1,258 @@
+### Welcome to the InfluxDB configuration file.
+
+# Once every 24 hours InfluxDB will report anonymous data to m.influxdb.com
+# The data includes raft id (random 8 bytes), os, arch, version, and metadata.
+# We don't track ip addresses of servers reporting. This is only used
+# to track the number of instances running and the versions, which
+# is very helpful for us.
+# Change this option to true to disable reporting.
+reporting-disabled = {{ disable_reporting }}
+
+###
+### [meta]
+###
+### Controls the parameters for the Raft consensus group that stores metadata
+### about the InfluxDB cluster.
+###
+
+[meta]
+  dir = "{{ meta_dir }}"
+  hostname = "{{ ansible_hostname }}"
+  bind-address = ":{{ meta_port }}"
+  retention-autocreate = {{ meta_retention_autocreate }}
+  election-timeout = "{{ meta_election_timeout }}"
+  heartbeat-timeout = "{{ meta_heartbeat_timeout }}"
+  leader-lease-timeout = "{{ meta_leader_lease_timeout }}"
+  commit-timeout = "{{ meta_commit_timeout }}"
+  cluster-tracing = {{ meta_cluster_tracing }}
+
+###
+### [data]
+###
+### Controls where the actual shard data for InfluxDB lives.
+###
+
+[data]
+  dir = "{{ data_dir }}"
+
+  # engine = "{{ data_engine }}"
+
+  # The following WAL settings are for the b1 storage engine used in 0.9.2. They won't
+  # apply to any new shards created after upgrading to a version > 0.9.3.
+  max-wal-size = {{ data_max_wal_size }}
+  wal-flush-interval = "{{ data_wal_flush_interval }}"
+  wal-partition-flush-delay = "{{ data_wal_partition_flush_delay }}"
+
+  # These are the WAL settings for the storage engine >= 0.9.3
+  wal-dir = "{{ data_wal_dir }}"
+  wal-logging-enabled = {{ data_wal_logging_enabled }}
+
+  # When a series in the WAL in-memory cache reaches this size in bytes it is marked as ready to
+  # flush to the index
+  # wal-ready-series-size = {{ data_wal_ready_series_size }}
+
+  # Flush and compact a partition once this ratio of series are over the ready size
+  # wal-compaction-threshold = {{ data_wal_compaction_threshold }}
+
+  # Force a flush and compaction if any series in a partition gets above this size in bytes
+  # wal-max-series-size = {{ data_wal_max_series_size }}
+
+  # Force a flush of all series and full compaction if there have been no writes in this
+  # amount of time. This is useful for ensuring that shards that are cold for writes don't
+  # keep a bunch of data cached in memory and in the WAL.
+  # wal-flush-cold-interval = "{{ data_wal_flush_cold_interval }}"
+
+  # Force a partition to flush its largest series if it reaches this approximate size in
+  # bytes. Remember there are 5 partitions so you'll need at least 5x this amount of memory.
+  # The more memory you have, the bigger this can be.
+  # wal-partition-size-threshold = {{ data_wal_partition_size_threshold }}
+  
+###
+### [cluster]
+###
+### Controls non-Raft cluster behavior, which generally includes how data is
+### shared across shards.
+###
+
+[cluster]
+  shard-writer-timeout = "{{ cluster_shard_writer_timeout }}"
+  force-remote-mapping = {{ cluster_force_remote_mapping }}
+  write-timeout = "{{ cluster_write_timeout }}"
+  shard-mapper-timeout = "{{ cluster_shard_mapper_timeout }}"
+
+###
+### [retention]
+###
+### Controls the enforcement of retention policies for evicting old data.
+###
+
+[retention]
+  enabled = {{ retention_enabled }}
+  check-interval = "{{ retention_check_interval }}"
+
+[shard-precreation]
+  enabled = {{ shard_pre_enabled }}
+  check-interval = "{{ shard_pre_check_interval }}"
+  advance-period = "{{ shard_pre_advance_period }}"
+
+###
+### [admin]
+###
+### Controls the availability of the built-in, web-based admin interface.
+###
+
+[admin]
+  enabled = {{ admin_enabled }}
+  bind-address = ":{{ admin_port }}"
+  https-enabled = {{ admin_https_enabled }}
+  https-certificate = "{{ admin_https_certificate }}"
+
+[monitor]
+  store-enabled = {{ monitor_store_enabled }}
+  store-database = "{{ monitor_store_database }}"
+  store-interval = "{{ monitor_store_interval }}"
+
+###
+### [http]
+###
+### Controls how the HTTP endpoints are configured. These are the primary
+### mechanism for getting data into and out of InfluxDB.
+###
+
+[http]
+  enabled = {{ http_enabled }}
+  bind-address = ":{{ http_port }}"
+  auth-enabled = {{ http_auth_enabled }}
+  log-enabled = {{ http_log_enabled }}
+  write-tracing = {{ http_write_tracing }}
+  pprof-enabled = {{ http_pprof_enabled }}
+  https-enabled = {{ http_https_enabled }}
+  https-certificate = "{{ http_https_certificate }}"
+  
+###
+### [[graphite]]
+###
+### Controls one or many listeners for Graphite data.
+###
+
+[[graphite]]
+  enabled = false
+  # bind-address = ":2003"
+  # protocol = "tcp"
+  # consistency-level = "one"
+  # name-separator = "."
+  # name-position = "last"
+
+  # These next lines control how batching works. You should have this enabled
+  # otherwise you could get dropped metrics or poor performance. Batching
+  # will buffer points in memory if you have many coming in.
+
+  # batch-size = 1000 # will flush if this many points get buffered
+  # batch-pending = 5 # number of batches that may be pending in memory
+  # batch-timeout = "1s" # will flush at least this often even if we haven't hit buffer limit
+
+  ## "name-schema" configures tag names for parsing the metric name from graphite protocol;
+  ## separated by `name-separator`.
+  ## The "measurement" tag is special and the corresponding field will become
+  ## the name of the metric.
+  ## e.g. "type.host.measurement.device" will parse "server.localhost.cpu.cpu0" as
+  ## {
+  ##     measurement: "cpu",
+  ##     tags: {
+  ##         "type": "server",
+  ##         "host": "localhost,
+  ##         "device": "cpu0"
+  ##     }
+  ## }
+  # name-schema = "type.host.measurement.device"
+
+  ## If set to true, when the input metric name has more fields than `name-schema` specified,
+  ## the extra fields will be ignored.
+  ## Otherwise an error will be logged and the metric rejected.
+  # ignore-unnamed = true
+
+###
+### [collectd]
+###
+### Controls the listener for collectd data.
+###
+
+[collectd]
+  enabled = false
+  # bind-address = ":25826"
+  # database = "collectd"
+  # retention-policy = ""
+  # batch-size = 1000
+  # batch-pending = 5
+  # batch-timeout = "10s"
+  # typesdb = "/usr/share/collectd/types.db"
+
+###
+### [opentsdb]
+###
+### Controls the listener for OpenTSDB data.
+###
+
+[opentsdb]
+  enabled = false
+  # bind-address = ":4242"
+  # database = "opentsdb"
+  # retention-policy = ""
+  # consistency-level = "one"
+  # tls-enabled = false
+  # certificate = "/etc/ssl/influxdb.pem"
+  # batch-size = 1000
+  # batch-pending = 5
+  # batch-timeout = "1s"
+
+###
+### [udp]
+###
+### Controls the listener for InfluxDB line protocol data via UDP.
+###
+
+# TODO: Including the udp table prevents service from starting (even if disabled)
+# [udp]
+#   enabled = false
+  # bind-address = ""
+  # database = ""
+  # batch-size = 0
+  # batch-timeout = "0"
+
+###
+### [monitoring]
+###
+
+[monitoring]
+  enabled = {{ monitoring_enabled }}
+  write-interval = "{{ monitoring_write_interval }}"
+
+###
+### [continuous_queries]
+###
+### Controls how continuous queries are run within InfluxDB.
+###
+
+[continuous_queries]
+  log-enabled = {{ cq_log_enabled }}
+  enabled = {{ cq_enabled }}
+  recompute-previous-n = {{ cq_recompute_previous_n }}
+  recompute-no-older-than = "{{ cq_recompute_no_older_than }}"
+  compute-runs-per-interval = {{ cq_compute_runs_per_interval }}
+  compute-no-more-than = "{{ cq_compute_no_more_than }}"
+
+###
+### [hinted-handoff]
+###
+### Controls the hinted handoff feature, which allows nodes to temporarily
+### store queued data when one node of a cluster is down for a short period
+### of time.
+###
+
+[hinted-handoff]
+  enabled = {{ hh_enabled }}
+  dir = "{{ hh_dir }}"
+  max-size = {{ hh_max_size }}
+  max-age = "{{ hh_max_age }}"
+  retry-rate-limit = {{ hh_retry_rate_limit }}
+  retry-interval = "{{ hh_retry_interval }}"

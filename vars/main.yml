@@ -1,0 +1,100 @@
+---
+# NOTE: Since Ansible uses Python on the backend, all boolean values are capitalized when being
+# rendered (which is not valid TOML). To get around this, make sure you quote any boolean values
+# (true -> "true") to ensure correct formatting (for template variables).
+
+# InfluxDB configuration file options
+disable_reporting: "false"
+
+## Meta Settings
+meta_dir: /var/opt/influxdb/meta
+meta_hostname: localhost
+meta_port: 8088
+meta_retention_autocreate: "true"
+meta_election_timeout: 1s
+meta_heartbeat_timeout: 1s
+meta_leader_lease_timeout: 500ms
+meta_commit_timeout: 50ms
+meta_cluster_tracing: "false"
+
+## Data Settings
+data_dir: /var/opt/influxdb/data
+data_engine: "tsm1"
+data_max_wal_size: 104857600
+data_wal_flush_interval: 10m0s
+data_wal_partition_flush_delay: 2s
+data_wal_dir: /var/opt/influxdb/wal
+data_wal_logging_enabled: "true"
+data_wal_ready_series_size: 30720
+data_wal_compaction_threshold: 0.5
+data_wal_max_series_size: 1048576
+data_wal_flush_cold_interval: 5s
+data_wal_partition_size_threshold: 20971520
+
+## Cluster Settings
+cluster_shard_writer_timeout: 5s
+cluster_force_remote_mapping: "false"
+cluster_write_timeout: 5s
+cluster_shard_mapper_timeout: 5s
+
+## Retention Settings
+retention_enabled: "true"
+retention_check_interval: 30m0s
+
+# Shard-Precreation Settings
+shard_pre_enabled: "true"
+shard_pre_check_interval: 10m0s
+shard_pre_advance_period: 30m0s
+
+## Admin Settings
+admin_enabled: "true"
+admin_port: 8083
+admin_https_enabled: "false"
+admin_https_certificate: /etc/ssl/influxdb.pem
+
+## Monitor Settings (not to be confused with 'Monitoring')
+monitor_store_enabled: "true"
+monitor_store_database: _internal
+monitor_store_interval: 10s
+
+## HTTP Settings
+http_enabled: "true"
+http_port: 8086
+http_auth_enabled: "false"
+http_log_enabled: "true"
+http_write_tracing: "true"
+http_pprof_enabled: "false"
+http_https_enabled: "false"
+http_https_certificate: /etc/ssl/influxdb.pem
+
+## TODO Graphite Settings
+
+## TODO Collectd Settings
+
+## TODO OpenTSDB Settings
+
+## TODO UDP Settings
+
+## Monitoring Settings
+monitoring_enabled: "true"
+monitoring_write_interval: 24h
+
+## Continuous Queries Settings
+cq_log_enabled: "true"
+cq_enabled: "true"
+cq_recompute_previous_n: 2
+cq_recompute_no_older_than: 10m
+cq_compute_runs_per_interval: 10
+cq_compute_no_more_than: 2m
+
+## Hinted-Handoff Settings
+hh_enabled: "true"
+hh_dir: /var/opt/influxdb/hh
+hh_max_size: 1073741824
+hh_max_age: 168h
+hh_retry_rate_limit: 0
+hh_retry_interval: 1s
+
+
+
+

@@ -1,0 +1,9 @@
+---
+
+- name: Set templatized InfluxDB configuration
+  template: src=influxdb.conf.j2 dest=/etc/opt/influxdb/influxdb.conf force=yes backup=yes owner=influxdb group=influxdb mode=0744
+  
+- name: Start the InfluxDB service
+  service: name=influxdb state=started enabled=yes
+  notify:
+    - pause

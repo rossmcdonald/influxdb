@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  author: Ross McDonald
+  description: Install and configure InfluxDB, a time-series database
+  company: InfluxData
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Ubuntu
+      versions:
+        - trusty
+        - utopic
+        - vivid
+    - name: Debian
+      versions:
+        - jessie
+        - wheezy
+  categories:
+    - cloud
+    - clustering
+    - database:nosql
+    - monitoring
+  dependencies: []
+

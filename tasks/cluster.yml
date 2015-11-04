@@ -1,0 +1,11 @@
+---
+- name: Configure hosts file
+  template: src=etc/hosts.j2 dest=/etc/hosts owner=root group=root mode=0644 backup=yes
+
+- name: Cluster servers
+  template: src=etc/default/influxdb.j2 dest=/etc/default/influxdb force=yes backup=yes owner=root group=root mode=0644
+  notify:
+    - purge metaid
+    - purge raftdb
+    - purge peers
+    - restart influxdb

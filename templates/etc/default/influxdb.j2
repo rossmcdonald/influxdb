@@ -1,0 +1,2 @@
+INFLUXD_OPTS="-hostname {{ ansible_hostname }}{% if ansible_hostname[-1:]|int != 1 %} -join {% for host in groups['all']|sort %}{% if hostvars[host]['ansible_hostname'][-1:]|int < ansible_hostname[-1:]|int %}{{ hostvars[host]['ansible_hostname'] }}:{{ meta_port }}{% if not loop.last %},{% endif %}{% endif %}{% endfor %}{% endif %}"
+

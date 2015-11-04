@@ -1,0 +1,14 @@
+---
+- include: install.yml
+  tags: [influxdb, install]
+
+- include: configure.yml
+  tags: [influxdb, configure]
+
+- include: cluster.yml
+  tags: [influxdb, cluster]
+  when: cluster_servers
+
+- include: demo.yml
+  tags: [influxdb, demo]
+  when: load_sample_data and http_auth_enabled == "false"
