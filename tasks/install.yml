@@ -7,11 +7,10 @@
     - curl
   when: ansible_os_family == "Debian"
   
-- name: Install any necessary dependencies [Debian/Ubuntu]
+- name: Install any necessary dependencies [RedHat/CentOS]
   yum: name={{ item }} state=present
   with_items:
     - curl
-    - python-httplib2
   when: ansible_os_family == "RedHat"    
     
 - name: Import InfluxDB GPG signing key [Debian/Ubuntu]
