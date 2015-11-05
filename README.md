@@ -8,6 +8,15 @@ Requirements
 
 Prior knowledge/experience with InfluxDB is highly recommended. Full documentation is available [here](https://influxdb.com/docs/v0.9/introduction/overview.html).
 
+Installation
+------------
+
+Either clone this repository, or install through Ansible Galaxy directly using the command:
+
+```
+ansible-galaxy install rossmcdonald.influxdb
+```
+
 Role Variables
 --------------
 
