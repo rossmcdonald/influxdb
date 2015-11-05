@@ -6,8 +6,10 @@ install_version: stable
 # NOTE:
 #   - Do not attempt to cluster previously-unclustered servers. This can lead to data loss.
 #   - This will overwrite your /etc/default/influxdb file (though it makes a backup)
-#   - This will overwrite your /etc/hosts file (though, again, it makes a backup)
 cluster_servers: no
+# When clustering is enabled, whether or not to overwrite the /etc/hosts file with raw
+# IPs (may be useful if no DNS resolution).
+overwrite_hosts_file: yes
 
 # Whether to load sample data (randomly generated integers) into a test database
 # NOTE: sample data cannot be loaded if authentication is enabled

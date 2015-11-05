@@ -1,6 +1,7 @@
 ---
-- name: Configure hosts file
-  template: src=etc/hosts.j2 dest=/etc/hosts owner=root group=root mode=0644 backup=yes
+- name: Update hosts configuration
+  template: src=etc/hosts.j2 dest=/etc/hosts force=yes backup=yes owner=root group=root mode=0644
+  when: overwrite_hosts_file
 
 - name: Cluster servers
   template: src=etc/default/influxdb.j2 dest=/etc/default/influxdb force=yes backup=yes owner=root group=root mode=0644
