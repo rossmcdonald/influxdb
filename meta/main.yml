@@ -20,9 +20,7 @@ galaxy_info:
         - jessie
         - wheezy
   categories:
-    - cloud
     - clustering
     - database:nosql
-    - monitoring
   dependencies: []
 
