@@ -69,7 +69,7 @@ http_https_certificate: /etc/ssl/influxdb.pem
 
 ## Graphite Settings
 graphite_enabled: "false"
-graphite_bind_address: :2003
+graphite_port: 2003
 graphite_protocol: tcp
 graphite_consistency_level: one
 graphite_name_separator: .
@@ -82,7 +82,7 @@ graphite_ignore_unnamed: "true"
 
 ## Collectd Settings
 collectd_enabled: "false"
-collectd_bind_address: :25826
+collectd_port: 25826
 collectd_database: collectd
 collectd_retention_policy: ""
 collectd_batch_size: 1000
@@ -92,7 +92,7 @@ collectd_typesdb: /usr/share/collectd/types.db
 
 ## OpenTSDB Settings
 opentsdb_enabled: "false"
-opentsdb_bind_address: :4242
+opentsdb_port: 4242
 opentsdb_database: opentsdb
 opentsdb_retention_policy: ""
 opentsdb_consistency_level: one

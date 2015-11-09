@@ -136,20 +136,20 @@ reporting-disabled = {{ disable_reporting }}
 ###
 
 [[graphite]]
-  enabled = false
-  # bind-address = ":2003"
-  # protocol = "tcp"
-  # consistency-level = "one"
-  # name-separator = "."
-  # name-position = "last"
+  enabled = {{ graphite_enabled }}
+  # bind-address = ":{{ graphite_port }}"
+  # protocol = "{{ graphite_protocol }}"
+  # consistency-level = "{{ graphite_consistency_level }}"
+  # name-separator = "{{ graphite_name_separator }}"
+  # name-position = "{{ graphite_name_position }}"
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching
   # will buffer points in memory if you have many coming in.
 
-  # batch-size = 1000 # will flush if this many points get buffered
-  # batch-pending = 5 # number of batches that may be pending in memory
-  # batch-timeout = "1s" # will flush at least this often even if we haven't hit buffer limit
+  # batch-size = {{ graphite_batch_size }} # will flush if this many points get buffered
+  # batch-pending = {{ graphite_batch_pending }} # number of batches that may be pending in memory
+  # batch-timeout = "{{ graphite_batch_timeout }}" # will flush at least this often even if we haven't hit buffer limit
 
   ## "name-schema" configures tag names for parsing the metric name from graphite protocol;
   ## separated by `name-separator`.
@@ -164,12 +164,12 @@ reporting-disabled = {{ disable_reporting }}
   ##         "device": "cpu0"
   ##     }
   ## }
-  # name-schema = "type.host.measurement.device"
+  # name-schema = "{{ graphite_name_schema }}"
 
   ## If set to true, when the input metric name has more fields than `name-schema` specified,
   ## the extra fields will be ignored.
   ## Otherwise an error will be logged and the metric rejected.
-  # ignore-unnamed = true
+  # ignore-unnamed = {{ graphite_ignore_unnamed }}
 
 ###
 ### [collectd]
@@ -178,14 +178,14 @@ reporting-disabled = {{ disable_reporting }}
 ###
 
 [collectd]
-  enabled = false
-  # bind-address = ":25826"
-  # database = "collectd"
-  # retention-policy = ""
-  # batch-size = 1000
-  # batch-pending = 5
-  # batch-timeout = "10s"
-  # typesdb = "/usr/share/collectd/types.db"
+  enabled = {{ collectd_enabled }}
+  bind-address = ":{{ collectd_port }}"
+  database = "{{ collectd_database }}"
+  retention-policy = "{{ collectd_retention_policy }}"
+  batch-size = {{ collectd_batch_size }}
+  batch-pending = {{ collectd_batch_pending }}
+  batch-timeout = "{{ collectd_batch_timeout }}"
+  typesdb = "{{ collectd_typesdb }}"
 
 ###
 ### [opentsdb]
@@ -194,16 +194,16 @@ reporting-disabled = {{ disable_reporting }}
 ###
 
 [opentsdb]
-  enabled = false
-  # bind-address = ":4242"
-  # database = "opentsdb"
-  # retention-policy = ""
-  # consistency-level = "one"
-  # tls-enabled = false
-  # certificate = "/etc/ssl/influxdb.pem"
-  # batch-size = 1000
-  # batch-pending = 5
-  # batch-timeout = "1s"
+  enabled = {{ opentsdb_enabled }}
+  # bind-address = ":{{ opentsdb_port }}"
+  # database = "{{ opentsdb_database }}"
+  # retention-policy = "{{ opentsdb_retention_policy }}"
+  # consistency-level = "{{ opentsdb_consistency_level }}"
+  # tls-enabled = {{ opentsdb_tls_enabled }}
+  # certificate = "{{ opentsdb_certificate }}"
+  # batch-size = {{ opentsdb_batch_size }}
+  # batch-pending = {{ opentsdb_batch_pending }}
+  # batch-timeout = "{{ opentsdb_batch_timeout }}"
 
 ###
 ### [udp]
@@ -211,13 +211,13 @@ reporting-disabled = {{ disable_reporting }}
 ### Controls the listener for InfluxDB line protocol data via UDP.
 ###
 
-# TODO: Including the udp table prevents service from starting (even if disabled)
-# [udp]
-#   enabled = false
-  # bind-address = ""
-  # database = ""
-  # batch-size = 0
-  # batch-timeout = "0"
+  # TODO: Including the udp table prevents service from starting (even if disabled)
+  # [udp]
+  #   enabled = {{ udp_enabled }}
+  # bind-address = "{{ udp_bind_address }}"
+  # database = "{{ udp_database }}"
+  # batch-size = {{ udp_batch_size }}
+  # batch-timeout = "{{ udp_batch_timeout }}"
 
 ###
 ### [monitoring]
