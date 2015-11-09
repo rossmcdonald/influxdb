@@ -67,13 +67,47 @@ http_pprof_enabled: "false"
 http_https_enabled: "false"
 http_https_certificate: /etc/ssl/influxdb.pem
 
-## TODO Graphite Settings
+## Graphite Settings
+graphite_enabled: "false"
+graphite_bind_address: :2003
+graphite_protocol: tcp
+graphite_consistency_level: one
+graphite_name_separator: .
+graphite_name_position: last
+graphite_batch_size: 1000
+graphite_batch_pending: 5
+graphite_batch_timeout: 1s
+graphite_name_schema: type.host.measurement.device
+graphite_ignore_unnamed: "true"
 
-## TODO Collectd Settings
+## Collectd Settings
+collectd_enabled: "false"
+collectd_bind_address: :25826
+collectd_database: collectd
+collectd_retention_policy: ""
+collectd_batch_size: 1000
+collectd_batch_pending: 5
+collectd_batch_timeout: 10s
+collectd_typesdb: /usr/share/collectd/types.db
 
-## TODO OpenTSDB Settings
+## OpenTSDB Settings
+opentsdb_enabled: "false"
+opentsdb_bind_address: :4242
+opentsdb_database: opentsdb
+opentsdb_retention_policy: ""
+opentsdb_consistency_level: one
+opentsdb_tls_enabled: "false"
+opentsdb_certificate: /etc/ssl/influxdb.pem
+opentsdb_batch_size: 1000
+opentsdb_batch_pending: 5
+opentsdb_batch_timeout: 1s
 
-## TODO UDP Settings
+## UDP Settings
+udp_enabled: "false"
+udp_bind_address: ""
+udp_database: ""
+udp_batch_size: 0
+udp_batch_timeout: 0
 
 ## Monitoring Settings
 monitoring_enabled: "true"
