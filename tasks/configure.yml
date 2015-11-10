@@ -3,13 +3,14 @@
 - name: Create InfluxDB-specific directories (if not already created)
   file: path={{ item }} state=directory owner=influxdb group=influxdb mode=0744
   with_items:
+    - "{{ configuration_dir }}"
     - "{{ meta_dir }}"
     - "{{ data_dir }}"
     - "{{ data_wal_dir }}"
     - "{{ hh_dir }}"
 
 - name: Set templatized InfluxDB configuration
-  template: src=influxdb.conf.j2 dest=/etc/opt/influxdb/influxdb.conf force=yes backup=yes owner=influxdb group=influxdb mode=0744
+  template: src=influxdb.conf.j2 dest={{ configuration_dir }}/influxdb.conf force=yes backup=yes owner=influxdb group=influxdb mode=0744
   
 - name: Start the InfluxDB service
   service: name=influxdb state=started enabled=yes

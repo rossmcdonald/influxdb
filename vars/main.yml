@@ -6,6 +6,8 @@
 # InfluxDB configuration file options
 disable_reporting: "false"
 
+configuration_dir: /etc/influxdb
+
 ## Meta Settings
 meta_dir: /var/lib/influxdb/meta
 meta_hostname: localhost
