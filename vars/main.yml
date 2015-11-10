@@ -7,7 +7,7 @@
 disable_reporting: "false"
 
 ## Meta Settings
-meta_dir: /var/opt/influxdb/meta
+meta_dir: /var/lib/influxdb/meta
 meta_hostname: localhost
 meta_port: 8088
 meta_retention_autocreate: "true"
@@ -18,12 +18,14 @@ meta_commit_timeout: 50ms
 meta_cluster_tracing: "false"
 
 ## Data Settings
-data_dir: /var/opt/influxdb/data
+data_dir: /var/lib/influxdb/data
+# NOTE: data_engine is currently commented out of the configuration, defaulting to the version default
+# Will uncomment when tsm1 stabilizes and becomes the default
 data_engine: "tsm1"
 data_max_wal_size: 104857600
 data_wal_flush_interval: 10m0s
 data_wal_partition_flush_delay: 2s
-data_wal_dir: /var/opt/influxdb/wal
+data_wal_dir: /var/lib/influxdb/wal
 data_wal_logging_enabled: "true"
 data_wal_ready_series_size: 30720
 data_wal_compaction_threshold: 0.5
@@ -123,12 +125,9 @@ cq_compute_no_more_than: 2m
 
 ## Hinted-Handoff Settings
 hh_enabled: "true"
-hh_dir: /var/opt/influxdb/hh
+hh_dir: /var/lib/influxdb/hh
 hh_max_size: 1073741824
 hh_max_age: 168h
 hh_retry_rate_limit: 0
 hh_retry_interval: 1s
-
-
-
 

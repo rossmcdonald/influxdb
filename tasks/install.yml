@@ -32,4 +32,3 @@
 - name: Install InfluxDB packages [RHEL/CentOS]
   yum: name=influxdb state=present
   when: ansible_os_family == "RedHat"
-
