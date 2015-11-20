@@ -2,10 +2,11 @@
 - name: Check to see which databases already exist
   command: /opt/influxdb/influx -execute 'show databases'
   register: db_listing
+  changed_when: no
 
 - name: Create demo database
   command: /opt/influxdb/influx -execute 'CREATE DATABASE {{ influxdb_sample_database_name }}'
-  when: db_listing.stdout.find("my_sample_db") == -1
+  when: db_listing.stdout.find("{{ influxdb_sample_database_name }}") == -1
 
 - name: Load demo data
   uri:
