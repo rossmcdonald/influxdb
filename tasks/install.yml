@@ -1,53 +1,6 @@
 ---
-- name: Install any necessary dependencies [Debian/Ubuntu]
-  apt: 
-    name: "{{ item }}" 
-    state: present 
-    update_cache: yes 
-    cache_valid_time: 3600
-
-  with_items:
-    - python-httplib2
-    - python-apt
-    - curl
-  when: ansible_os_family == "Debian"
-  
-- name: Install any necessary dependencies [RedHat/CentOS]
-  yum: 
-    name: "{{ item }}" 
-    state: present
-  with_items:
-    - curl
-  when: ansible_os_family == "RedHat"    
-    
-- name: Import InfluxDB GPG signing key [Debian/Ubuntu]
-  apt_key:
-    url: https://repos.influxdata.com/influxdb.key
-    state: present
-  when: ansible_os_family == "Debian"
-
-- name: Add InfluxDB repository [Debian/Ubuntu]
-  apt_repository:
-    repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ install_version }}
-    state: present
-  when: ansible_os_family == "Debian"
-    
-- name: Add InfluxDB repository file [RHEL/CentOS]
-  template:
-    src: etc/yum.repos.d/influxdb.repo.j2
-    dest: /etc/yum.repos.d/influxdb.repo
-    force: yes
-    backup: yes
+- include: install-redhat.yml
   when: ansible_os_family == "RedHat"
-  
-- name: Install InfluxDB packages [Debian/Ubuntu]
-  apt: 
-    name: influxdb
-    state: present
-  when: ansible_os_family == "Debian"
 
-- name: Install InfluxDB packages [RHEL/CentOS]
-  yum: 
-    name: influxdb
-    state: present
-  when: ansible_os_family == "RedHat"
+- include: install-debian.yml
+  when: ansible_os_family == "Debian"
