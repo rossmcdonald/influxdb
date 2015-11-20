@@ -17,7 +17,7 @@
 
 - name: Add InfluxDB repository [Debian/Ubuntu]
   apt_repository:
-    repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ install_version }}
+    repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ influxdb_install_version }}
     state: present
     
 

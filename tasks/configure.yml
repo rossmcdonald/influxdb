@@ -8,16 +8,16 @@
     group: influxdb
     mode: 0744
   with_items:
-    - "{{ configuration_dir }}"
-    - "{{ meta_dir }}"
-    - "{{ data_dir }}"
-    - "{{ data_wal_dir }}"
-    - "{{ hh_dir }}"
+    - "{{ influxdb_configuration_dir }}"
+    - "{{ influxdb_meta_dir }}"
+    - "{{ influxdb_data_dir }}"
+    - "{{ influxdb_data_wal_dir }}"
+    - "{{ influxdb_hh_dir }}"
 
 - name: Set templatized InfluxDB configuration
   template: 
     src: influxdb.conf.j2 
-    dest: "{{ configuration_dir }}/influxdb.conf"
+    dest: "{{ influxdb_configuration_dir }}/influxdb.conf"
     force: yes
     backup: yes
     owner: influxdb

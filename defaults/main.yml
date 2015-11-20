@@ -1,19 +1,153 @@
 ---
 # Channel of InfluxDB to install (stable, unstable, nightly)
-install_version: stable
+influxdb_install_version: stable
 
 # If multiple servers are specified, whether to create a clustered configuration
 # NOTE:
 #   - Do not attempt to cluster previously-unclustered servers. This can lead to data loss.
 #   - This will overwrite your /etc/default/influxdb file (though it makes a backup)
-cluster_servers: no
+influxdb_cluster_servers: no
 # When clustering is enabled, whether or not to overwrite the /etc/hosts file with raw
 # IPs (may be useful if no DNS resolution).
-overwrite_hosts_file: yes
+influxdb_overwrite_hosts_file: yes
 
 # Whether to load sample data (randomly generated integers) into a test database
 # NOTE: sample data cannot be loaded if authentication is enabled
-load_sample_data: no
-sample_database_name: sample_database
-sample_measurement_name: random_ints
-sample_num_points: 20
+influxdb_load_sample_data: no
+influxdb_sample_database_name: sample_database
+influxdb_sample_measurement_name: random_ints
+influxdb_sample_num_points: 20
+
+# NOTE: Since Ansible uses Python on the backend, all boolean values are capitalized when being
+# rendered (which is not valid TOML). To get around this, make sure you quote any boolean values
+# (true -> "true") to ensure correct formatting (for template variables).
+
+# InfluxDB configuration file options
+influxdb_disable_reporting: "false"
+
+influxdb_configuration_dir: /etc/influxdb
+
+## Meta Settings
+influxdb_meta_dir: /var/lib/influxdb/meta
+influxdb_meta_hostname: localhost
+influxdb_meta_port: 8088
+influxdb_meta_retention_autocreate: "true"
+influxdb_meta_election_timeout: 1s
+influxdb_meta_heartbeat_timeout: 1s
+influxdb_meta_leader_lease_timeout: 500ms
+influxdb_meta_commit_timeout: 50ms
+influxdb_meta_cluster_tracing: "false"
+
+## Data Settings
+influxdb_data_dir: /var/lib/influxdb/data
+# NOTE: data_engine is currently commented out of the configuration, defaulting to the version default
+# Will uncomment when tsm1 stabilizes and becomes the default
+influxdb_data_engine: "tsm1"
+influxdb_data_max_wal_size: 104857600
+influxdb_data_wal_flush_interval: 10m0s
+influxdb_data_wal_partition_flush_delay: 2s
+influxdb_data_wal_dir: /var/lib/influxdb/wal
+influxdb_data_wal_logging_enabled: "true"
+influxdb_data_wal_ready_series_size: 30720
+influxdb_data_wal_compaction_threshold: 0.5
+influxdb_data_wal_max_series_size: 1048576
+influxdb_data_wal_flush_cold_interval: 5s
+influxdb_data_wal_partition_size_threshold: 20971520
+
+## Cluster Settings
+influxdb_cluster_shard_writer_timeout: 5s
+influxdb_cluster_force_remote_mapping: "false"
+influxdb_cluster_write_timeout: 5s
+influxdb_cluster_shard_mapper_timeout: 5s
+
+## Retention Settings
+influxdb_retention_enabled: "true"
+influxdb_retention_check_interval: 30m0s
+
+# Shard-Precreation Settings
+influxdb_shard_pre_enabled: "true"
+influxdb_shard_pre_check_interval: 10m0s
+influxdb_shard_pre_advance_period: 30m0s
+
+## Admin Settings
+influxdb_admin_enabled: "true"
+influxdb_admin_port: 8083
+influxdb_admin_https_enabled: "false"
+influxdb_admin_https_certificate: /etc/ssl/influxdb.pem
+
+## Monitor Settings (not to be confused with 'Monitoring')
+influxdb_monitor_store_enabled: "true"
+influxdb_monitor_store_database: _internal
+influxdb_monitor_store_interval: 10s
+
+## HTTP Settings
+influxdb_http_enabled: "true"
+influxdb_http_port: 8086
+influxdb_http_auth_enabled: "false"
+influxdb_http_log_enabled: "true"
+influxdb_http_write_tracing: "true"
+influxdb_http_pprof_enabled: "false"
+influxdb_http_https_enabled: "false"
+influxdb_http_https_certificate: /etc/ssl/influxdb.pem
+
+## Graphite Settings
+influxdb_graphite_enabled: "false"
+influxdb_graphite_port: 2003
+influxdb_graphite_protocol: tcp
+influxdb_graphite_consistency_level: one
+influxdb_graphite_name_separator: .
+influxdb_graphite_name_position: last
+influxdb_graphite_batch_size: 1000
+influxdb_graphite_batch_pending: 5
+influxdb_graphite_batch_timeout: 1s
+influxdb_graphite_name_schema: type.host.measurement.device
+influxdb_graphite_ignore_unnamed: "true"
+
+## Collectd Settings
+influxdb_collectd_enabled: "false"
+influxdb_collectd_port: 25826
+influxdb_collectd_database: collectd
+influxdb_collectd_retention_policy: ""
+influxdb_collectd_batch_size: 1000
+influxdb_collectd_batch_pending: 5
+influxdb_collectd_batch_timeout: 10s
+influxdb_collectd_typesdb: /usr/share/collectd/types.db
+
+## OpenTSDB Settings
+influxdb_opentsdb_enabled: "false"
+influxdb_opentsdb_port: 4242
+influxdb_opentsdb_database: opentsdb
+influxdb_opentsdb_retention_policy: ""
+influxdb_opentsdb_consistency_level: one
+influxdb_opentsdb_tls_enabled: "false"
+influxdb_opentsdb_certificate: /etc/ssl/influxdb.pem
+influxdb_opentsdb_batch_size: 1000
+influxdb_opentsdb_batch_pending: 5
+influxdb_opentsdb_batch_timeout: 1s
+
+## UDP Settings
+influxdb_udp_enabled: "false"
+influxdb_udp_bind_address: ""
+influxdb_udp_database: ""
+influxdb_udp_batch_size: 0
+influxdb_udp_batch_timeout: 0
+
+## Monitoring Settings
+influxdb_monitoring_enabled: "true"
+influxdb_monitoring_write_interval: 24h
+
+## Continuous Queries Settings
+influxdb_cq_log_enabled: "true"
+influxdb_cq_enabled: "true"
+influxdb_cq_recompute_previous_n: 2
+influxdb_cq_recompute_no_older_than: 10m
+influxdb_cq_compute_runs_per_interval: 10
+influxdb_cq_compute_no_more_than: 2m
+
+## Hinted-Handoff Settings
+influxdb_hh_enabled: "true"
+influxdb_hh_dir: /var/lib/influxdb/hh
+influxdb_hh_max_size: 1073741824
+influxdb_hh_max_age: 168h
+influxdb_hh_retry_rate_limit: 0
+influxdb_hh_retry_interval: 1s

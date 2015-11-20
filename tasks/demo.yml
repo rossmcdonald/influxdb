@@ -4,14 +4,14 @@
   register: db_listing
 
 - name: Create demo database
-  command: /opt/influxdb/influx -execute 'CREATE DATABASE {{ sample_database_name }}'
+  command: /opt/influxdb/influx -execute 'CREATE DATABASE {{ influxdb_sample_database_name }}'
   when: db_listing.stdout.find("my_sample_db") == -1
 
 - name: Load demo data
   uri:
-    url: http://localhost:8086/write?db={{ sample_database_name }}
+    url: http://localhost:8086/write?db={{ influxdb_sample_database_name }}
     method: POST
-    body: "{{ sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}"
+    body: "{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}"
     status_code: 204
-  with_sequence: start=1 end={{ sample_num_points }}
+  with_sequence: start=1 end={{ influxdb_sample_num_points }}
 
