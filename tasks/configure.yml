@@ -1,19 +1,35 @@
 ---
 
 - name: Create InfluxDB-specific directories (if not already created)
-  file: path={{ item }} state=directory owner=influxdb group=influxdb mode=0744
+  file: 
+    path: "{{ item }}"
+    state: directory
+    owner: influxdb
+    group: influxdb
+    mode: 0744
   with_items:
-    - "{{ configuration_dir }}"
-    - "{{ meta_dir }}"
-    - "{{ data_dir }}"
-    - "{{ data_wal_dir }}"
-    - "{{ hh_dir }}"
+    - "{{ influxdb_configuration_dir }}"
+    - "{{ influxdb_meta_dir }}"
+    - "{{ influxdb_data_dir }}"
+    - "{{ influxdb_data_wal_dir }}"
+    - "{{ influxdb_hh_dir }}"
 
 - name: Set templatized InfluxDB configuration
-  template: src=influxdb.conf.j2 dest={{ configuration_dir }}/influxdb.conf force=yes backup=yes owner=influxdb group=influxdb mode=0744
+  template: 
+    src: influxdb.conf.j2 
+    dest: "{{ influxdb_configuration_dir }}/influxdb.conf"
+    force: yes
+    backup: yes
+    owner: influxdb
+    group: influxdb
+    mode: 0744
+  notify: restart influxdb
   
 - name: Start the InfluxDB service
-  service: name=influxdb state=started enabled=yes
+  service:
+    name: influxdb
+    state: started
+    enabled: yes
   notify:
     - pause
 

@@ -1,15 +1,24 @@
 ---
 - name: purge metaid
-  file: path=/var/opt/influxdb/meta/id state=absent
+  file: 
+    path: /var/opt/influxdb/meta/id
+    state: absent
 
 - name: purge raftdb
-  file: path=/var/opt/influxdb/meta/raft.db state=absent
+  file:
+    path: /var/opt/influxdb/meta/raft.db
+    state: absent
 
 - name: purge peers
-  file: path=/var/opt/influxdb/meta/peers.json state=absent
+  file:
+    path: /var/opt/influxdb/meta/peers.json
+    state: absent
 
 - name: restart influxdb
-  service: name=influxdb state=restarted
+  service: 
+    name: influxdb
+    state: restarted
 
 - name: pause
-  pause: seconds=3
+  pause:
+    seconds: 3

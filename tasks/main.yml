@@ -7,8 +7,8 @@
 
 - include: cluster.yml
   tags: [influxdb, cluster]
-  when: cluster_servers
+  when: influxdb_cluster_servers
 
 - include: demo.yml
   tags: [influxdb, demo]
-  when: load_sample_data and http_auth_enabled == "false"
+  when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false"
