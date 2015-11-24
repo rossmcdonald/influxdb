@@ -24,27 +24,26 @@ The high-level variables are stored in the `defaults/main.yml` file. The most im
 
 ```
 # Channel of InfluxDB to install (stable, unstable, nightly)
-install_version: stable
+influxdb_install_version: stable
 
 # If multiple servers are specified, whether to create a clustered configuration
 # NOTE:
 #   - Do not attempt to cluster previously-unclustered servers. This can lead to data loss.
 #   - This will overwrite your /etc/default/influxdb file (though it makes a backup)
-cluster_servers: no
+influxdb_cluster_servers: no
 # When clustering is enabled, whether or not to overwrite the /etc/hosts file with raw
 # IPs (may be useful if no DNS resolution).
-overwrite_hosts_file: yes
+influxdb_overwrite_hosts_file: yes
 
 # Whether to load sample data (randomly generated integers) into a test database
 # NOTE: sample data cannot be loaded if authentication is enabled
-load_sample_data: no
-sample_database_name: sample_database
-sample_measurement_name: random_ints
-sample_num_points: 20
+influxdb_load_sample_data: no
+influxdb_sample_database_name: sample_database
+influxdb_sample_measurement_name: random_ints
+influxdb_sample_num_points: 20
 ```
 
-More advanced configuration options are stored in the `vars/main.yml` file, which includes all of the necessary bells and whistles to tweak your configuration. The entire InfluxDB configuration file is parameterized using the `vars/main.yml` file, so any changes made there will be persisted to the configuration on each run.
-
+More advanced configuration options are stored in the `defaults/main.yml` file, which includes all of the necessary bells and whistles to tweak your configuration. The entire InfluxDB configuration defaults are set using the `defaults/main.yml` file.  You may override these via inventory vars, playbook vars, or extra vars.
 Dependencies
 ------------
 
