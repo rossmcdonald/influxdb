@@ -13,8 +13,9 @@ Vagrant.configure(2) do |config|
   (1..BOX_COUNT).each do |machine_id|
     config.vm.define "influx#{machine_id}" do |machine|
       machine.vm.hostname = "influx#{machine_id}"
-      machine.vm.network "private_network", ip: "10.0.3.#{1+machine_id}", virtualbox__intnet: true
+      # machine.vm.network "private_network", ip: "10.0.3.#{1+machine_id}", virtualbox__intnet: true
       # machine.vm.network "public_network"
+      machine.vm.network "public_network", :bridge => 'en0: Wi-Fi (AirPort)'
       
       machine.vm.provider "virtualbox" do |v|
         v.memory = 512
