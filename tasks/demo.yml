@@ -14,5 +14,6 @@
     method: POST
     body: "{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}"
     status_code: 204
-  with_sequence: start=1 end={{ influxdb_sample_num_points }}
+  with_sequence: start=1 end=10
+
 
