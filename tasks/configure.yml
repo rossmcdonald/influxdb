@@ -32,4 +32,5 @@
     enabled: yes
   notify:
     - pause
+  when: influxdb_start_service == True
 
