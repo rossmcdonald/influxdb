@@ -2,6 +2,8 @@
 # Channel of InfluxDB to install (stable, unstable, nightly)
 influxdb_install_version: stable
 
+influxdb_start_service: yes
+
 # If multiple servers are specified, whether to create a clustered configuration
 # NOTE:
 #   - Do not attempt to cluster previously-unclustered servers. This can lead to data loss.
