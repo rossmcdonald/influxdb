@@ -29,6 +29,9 @@ Vagrant.configure(2) do |config|
           ansible.playbook = "test.yml"
           ansible.sudo = true
           ansible.host_key_checking = false
+          ansible.extra_vars = {
+            is_vagrant: true,
+          }
         end
       end
       

@@ -1,3 +1,4 @@
 ---
 
-
+# Whether or not the playbook is run locally (changes clustering logic slightly)
+is_vagrant: no
