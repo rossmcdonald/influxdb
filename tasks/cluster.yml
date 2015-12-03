@@ -49,3 +49,18 @@
 - name: Display output
   debug:
     var: influxdb_show_servers_output
+
+- name: Assert clustering status (local/vagrant)
+  assert:
+    that:
+      - "influxdb_show_servers_output.stdout.find(item)"
+  with_items: groups['all']
+  when: is_vagrant
+
+- name: Assert clustering status (non-local)
+  assert:
+    that:
+      - "influxdb_show_servers_output.stdout.find(item)"
+  with_items: groups['influxdb']|default([], True)
+  when: "'influxdb' in groups and is_vagrant == False"
+  

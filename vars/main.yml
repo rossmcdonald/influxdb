@@ -4,4 +4,4 @@
 is_vagrant: no
 
 # Whether or not to purge peer data on each run (useful for cluster testing)
-influxdb_purge_peer_data: yes
+influxdb_purge_peer_data: no

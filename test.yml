@@ -3,11 +3,6 @@
     - defaults/main.yml
     - vars/main.yml
   tasks:
-    - name: Add all hosts to influxdb group
-      add_host:
-        name: "{{ ansible_hostname }}"
-        groups: influxdb
-    
     - include: tasks/main.yml
   handlers:
     - include: handlers/main.yml
