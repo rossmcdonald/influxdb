@@ -1,7 +1,7 @@
 InfluxDB
 ========
 
-An Ansible role to install, configure, and manage [InfluxDB](https://github.com/influxdb/influxdb) (a time-series database).
+An Ansible role to install, configure, and manage [InfluxDB](https://github.com/influxdb/influxdb) (a time-series database) v0.9 instances.
 
 Requirements
 ------------
@@ -34,20 +34,14 @@ influxdb_cluster_servers: no
 # When clustering is enabled, whether or not to overwrite the /etc/hosts file with raw
 # IPs (may be useful if no DNS resolution).
 influxdb_overwrite_hosts_file: yes
-
-# Whether to load sample data (randomly generated integers) into a test database
-# NOTE: sample data cannot be loaded if authentication is enabled
-influxdb_load_sample_data: no
-influxdb_sample_database_name: sample_database
-influxdb_sample_measurement_name: random_ints
-influxdb_sample_num_points: 20
 ```
 
 More advanced configuration options are stored in the `defaults/main.yml` file, which includes all of the necessary bells and whistles to tweak your configuration. The entire InfluxDB configuration defaults are set using the `defaults/main.yml` file.  You may override these via inventory vars, playbook vars, or extra vars.
+
 Dependencies
 ------------
 
-No other dependencies are required.
+No other Ansible dependencies are required. This role was tested and developed with Ansible 1.9.4.
 
 Example Playbook
 ----------------
