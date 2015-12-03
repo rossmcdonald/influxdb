@@ -17,11 +17,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [meta]
   dir = "{{ influxdb_meta_dir }}"
-{% if influxdb_cluster_servers %}
-  hostname = "{{ ansible_hostname }}"
-{% else %}
   hostname = "localhost"
-{% endif %}
   bind-address = ":{{ influxdb_meta_port }}"
   retention-autocreate = {{ influxdb_meta_retention_autocreate }}
   election-timeout = "{{ influxdb_meta_election_timeout }}"

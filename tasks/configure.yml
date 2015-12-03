@@ -6,7 +6,7 @@
     state: directory
     owner: influxdb
     group: influxdb
-    mode: 0744
+    mode: 0755
   with_items:
     - "{{ influxdb_configuration_dir }}"
     - "{{ influxdb_meta_dir }}"

@@ -27,9 +27,6 @@
     name: influxdb
     state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
-
-- name: Debug
-  debug: var=influxdb_install_url
   
 - name: Download InfluxDB package via URL [Debian/Ubuntu]
   command: curl -o /tmp/influxdb-ansible-download.deb {{ influxdb_install_url }}

@@ -46,10 +46,6 @@
   command: influx -execute 'show servers'
   register: influxdb_show_servers_output
 
-- name: Display output
-  debug:
-    var: influxdb_show_servers_output
-
 - name: Assert clustering status (local/vagrant)
   assert:
     that:
