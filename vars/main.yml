@@ -1,10 +1,17 @@
 ---
 
-# Whether or not the playbook is run locally (changes clustering logic slightly)
+# Whether or not the playbook is run locally (changes clustering and testing logic slightly)
+# This should only be set in the Vagrantfile and not modified elsewhere
 is_vagrant: no
 
-# Whether or not to purge peer data on each run (useful for cluster testing),
-# NOTE: This will cause data loss on an active cluster, so use caution
+# By default, the InfluxData package repository will be used for installation. Alternatively,
+# if you have a specific package/version you want to install from, you can specify a package
+# URL here. Note that this does not modify any other logic, so installing older versions may
+# lead to unexpected results. Use at your own risk.
+influxdb_install_url: 
+
+# Whether or not to purge peer data on each run (useful for cluster testing). NOTE: This will
+# cause data loss on an active cluster, so use caution
 influxdb_purge_peer_data: no
 
 # If yes, service will be started. Will not be started if set to no.

@@ -1,3 +1,4 @@
+---
 - name: Install any necessary dependencies [RedHat/CentOS]
   yum: 
     name: "{{ item }}" 
@@ -11,8 +12,17 @@
     dest: /etc/yum.repos.d/influxdb.repo
     force: yes
     backup: yes
+  when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB packages [RHEL/CentOS]
   yum: 
     name: influxdb
     state: present
+  when: influxdb_install_url is not defined or influxdb_install_url == None
+
+- name: Install InfluxDB from URL [RHEL/CentOS]
+  yum: 
+    name: "{{ influxdb_install_url }}"
+    state: present
+  when: influxdb_install_url is defined and influxdb_install_url != None
+  

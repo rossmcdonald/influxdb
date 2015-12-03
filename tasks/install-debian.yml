@@ -1,10 +1,10 @@
+---
 - name: Install any necessary dependencies [Debian/Ubuntu]
   apt: 
     name: "{{ item }}" 
     state: present 
     update_cache: yes 
     cache_valid_time: 3600
-
   with_items:
     - python-httplib2
     - python-apt
@@ -14,14 +14,25 @@
   apt_key:
     url: https://repos.influxdata.com/influxdb.key
     state: present
+  when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Add InfluxDB repository [Debian/Ubuntu]
   apt_repository:
     repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ influxdb_install_version }}
     state: present
-    
+  when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB packages [Debian/Ubuntu]
   apt: 
     name: influxdb
     state: present
+  when: influxdb_install_url is not defined or influxdb_install_url == None
+
+- name: Debug
+  debug: var=influxdb_install_url
+  
+- name: Install InfluxDB from URL [Debian/Ubuntu]
+  apt: 
+    name: "{{ influxdb_install_url }}"
+    state: present
+  when: influxdb_install_url is defined and influxdb_install_url != None
