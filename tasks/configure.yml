@@ -30,7 +30,21 @@
     name: influxdb
     state: started
     enabled: yes
-  notify:
-    - pause
+  register: influxdb_started
   when: influxdb_start_service == True
 
+- name: Pause to ensure InfluxDB service is up
+  pause:
+    seconds: 3
+  when: influxdb_started.changed and influxdb_start_service == True
+  
+- name: Collect service status
+  command: service influxdb status
+  register: influxdb_service_status
+  when: influxdb_start_service == True
+
+- name: Assert status of InfluxDB service
+  assert:
+    that:
+      - "influxdb_service_status.rc == 0"
+  when: influxdb_start_service == True
