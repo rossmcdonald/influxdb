@@ -3,5 +3,9 @@
 # Whether or not the playbook is run locally (changes clustering logic slightly)
 is_vagrant: no
 
-# Whether or not to purge peer data on each run (useful for cluster testing)
+# Whether or not to purge peer data on each run (useful for cluster testing),
+# NOTE: This will cause data loss on an active cluster, so use caution
 influxdb_purge_peer_data: no
+
+# If yes, service will be started. Will not be started if set to no.
+influxdb_start_service: yes

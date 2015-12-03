@@ -2,14 +2,11 @@
 # Channel of InfluxDB to install (stable, unstable, nightly)
 influxdb_install_version: stable
 
-# If yes, service will be started. Will not be started if set to no.
-influxdb_start_service: yes
-
 # If multiple servers are specified, whether to create a clustered configuration
 # NOTE:
 #   - Do not attempt to cluster previously-unclustered servers. This can lead to data loss.
 #   - This will overwrite your /etc/default/influxdb file (though it makes a backup)
-influxdb_cluster_servers: yes
+influxdb_cluster_servers: no
 # When clustering is enabled, whether or not to overwrite the /etc/hosts file with raw
 # IPs (may be useful if no DNS resolution).
 influxdb_overwrite_hosts_file: yes

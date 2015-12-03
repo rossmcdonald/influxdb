@@ -42,6 +42,7 @@
   command: service influxdb status
   register: influxdb_service_status
   when: influxdb_start_service
+  ignore_errors: yes
 
 - name: Assert status of InfluxDB service
   assert:
