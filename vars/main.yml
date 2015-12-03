@@ -8,7 +8,7 @@ is_vagrant: no
 # if you have a specific package/version you want to install from, you can specify a package
 # URL here. Note that this does not modify any other logic, so installing older versions may
 # lead to unexpected results. Use at your own risk.
-influxdb_install_url: 
+influxdb_install_url:
 
 # Whether or not to purge peer data on each run (useful for cluster testing). NOTE: This will
 # cause data loss on an active cluster, so use caution

@@ -31,8 +31,12 @@
 - name: Debug
   debug: var=influxdb_install_url
   
-- name: Install InfluxDB from URL [Debian/Ubuntu]
-  apt: 
-    name: "{{ influxdb_install_url }}"
+- name: Download InfluxDB package via URL [Debian/Ubuntu]
+  command: curl -o /tmp/influxdb-ansible-download.deb {{ influxdb_install_url }}
+  when: influxdb_install_url is defined and influxdb_install_url != None
+
+- name: Install downloaded InfluxDB package [Debian/Ubuntu]
+  apt:
+    deb: /tmp/influxdb-ansible-download.deb
     state: present
   when: influxdb_install_url is defined and influxdb_install_url != None
