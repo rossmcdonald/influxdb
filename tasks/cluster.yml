@@ -43,7 +43,7 @@
   when: influxdb_cluster_set.changed or influxdb_purge_peer_data
   
 - name: Collect cluster status
-  command: influx -execute 'show servers'
+  command: "{{ influxdb_binary_path }}/influx -execute 'show servers'"
   register: influxdb_show_servers_output
 
 - name: Assert clustering status (local/vagrant)

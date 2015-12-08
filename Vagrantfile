@@ -7,7 +7,6 @@ Vagrant.configure(2) do |config|
   # config.vm.box = "relativkreativ/centos-7-minimal"
   # config.vm.box = "box-cutter/fedora22"
   # config.vm.box = "puppetlabs/centos-6.6-64-nocm"
-  # config.vm.box = "hansode/centos-6.5-x86_64"
 
   BOX_COUNT = 1
   (1..BOX_COUNT).each do |machine_id|
@@ -27,6 +26,10 @@ Vagrant.configure(2) do |config|
           # ansible.verbose = 'vvvv'
           ansible.limit = 'all'
           ansible.playbook = "test.yml"
+          # ansible.playbook = "playbooks/0.9.4.2_to_0.9.5.1_upgrade_path.yml"
+          # ansible.playbook = "playbooks/0.9.5.1_to_0.9.6_upgrade_path.yml"
+          # ansible.playbook = "playbooks/0.9.4.2_to_0.9.6_upgrade_path.yml"
+          # ansible.playbook = "playbooks/0.9.4.2_to_0.9.5.1_to_0.9.6_upgrade_path.yml"
           ansible.sudo = true
           ansible.host_key_checking = false
           ansible.extra_vars = {

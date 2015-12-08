@@ -12,3 +12,6 @@
 - include: demo.yml
   tags: [influxdb, demo]
   when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
+
+- include: verify.yml
+  tags: [influxdb, verify]

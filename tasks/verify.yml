@@ -1,0 +1,11 @@
+---
+- name: List databases for verification
+  command: "{{ influxdb_binary_path }}/influx -execute 'show databases'"
+  register: influxdb_show_databases
+  when: influxdb_verify_database_is_present is defined and influxdb_verify_database_is_present != None
+
+- name: Fail if database is not present
+  fail: msg="Database {{ influxdb_verify_database_is_present }} not present!"
+  when: influxdb_verify_database_is_present is defined and influxdb_verify_database_is_present != None and influxdb_show_databases.stdout.find("{{ influxdb_verify_database_is_present }}") == -1
+
+

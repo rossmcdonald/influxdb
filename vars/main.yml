@@ -16,3 +16,13 @@ influxdb_purge_peer_data: no
 
 # If yes, service will be started. Will not be started if set to no.
 influxdb_start_service: yes
+
+# If yes, will overwrite the packaged configuration with an Asnible/jinja2 template
+influxdb_template_configuration: yes
+
+# If supplied, will check for presence of database, and error if not found (useful for upgrade
+# testing).
+influxdb_verify_database_is_present: 
+
+# Path for finding InfluxDB binaries. Added for backwards-compatibility with < 0.9.5
+influxdb_binary_path: /usr/bin
