@@ -39,9 +39,7 @@ influxdb_meta_cluster_tracing: "false"
 
 ## Data Settings
 influxdb_data_dir: /var/lib/influxdb/data
-# NOTE: data_engine is currently commented out of the configuration, defaulting to the version default
-# Will uncomment when tsm1 stabilizes and becomes the default
-influxdb_data_engine: "tsm1"
+influxdb_data_engine: "b1"
 influxdb_data_max_wal_size: 104857600
 influxdb_data_wal_flush_interval: 10m0s
 influxdb_data_wal_partition_flush_delay: 2s
