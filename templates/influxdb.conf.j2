@@ -17,7 +17,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [meta]
   dir = "{{ influxdb_meta_dir }}"
-  hostname = "localhost"
+  hostname = "{{ influxdb_meta_hostname }}"
   bind-address = ":{{ influxdb_meta_port }}"
   retention-autocreate = {{ influxdb_meta_retention_autocreate }}
   election-timeout = "{{ influxdb_meta_election_timeout }}"
