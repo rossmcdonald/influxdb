@@ -6,10 +6,10 @@
   with_items:
     - curl
 
-- name: Add InfluxDB repository file [RHEL/CentOS]
+- name: Add InfluxData repository file [RHEL/CentOS]
   template:
-    src: etc/yum.repos.d/influxdb.repo.j2
-    dest: /etc/yum.repos.d/influxdb.repo
+    src: etc/yum.repos.d/influxdata.repo.j2
+    dest: /etc/yum.repos.d/influxdata.repo
     force: yes
     backup: yes
   when: influxdb_install_url is not defined or influxdb_install_url == None
@@ -17,7 +17,7 @@
 - name: Install InfluxDB packages [RHEL/CentOS]
   yum: 
     name: influxdb
-    state: present
+    state: latest
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB from URL [RHEL/CentOS]
