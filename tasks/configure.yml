@@ -1,4 +1,9 @@
 ---
+- name: Set configuration directory path
+  file:
+    path: "{{ influxdb_configuration_dir }}"
+    state: directory
+
 - name: Set templatized InfluxDB configuration
   template: 
     src: influxdb.conf.j2 
