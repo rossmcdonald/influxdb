@@ -1,4 +1,5 @@
 ---
+
 - name: Update hosts configuration
   template: 
     src: etc/hosts.j2
@@ -21,6 +22,12 @@
     mode: 0644
   register: influxdb_cluster_set
 
+- name: Stop InfluxDB
+  service: 
+    name: influxdb
+    state: stopped
+  when: influxdb_cluster_set.changed or influxdb_purge_peer_data
+
 - name: Purge existing peer data
   file: 
     path: "{{ item }}"
@@ -30,16 +37,16 @@
     - "{{ influxdb_meta_dir }}/raft.db"
     - "{{ influxdb_meta_dir }}/peers.json"
   when: influxdb_cluster_set.changed or influxdb_purge_peer_data
-
-- name: Restart InfluxDB
+  
+- name: Start InfluxDB
   service: 
     name: influxdb
-    state: restarted
+    state: started
   when: influxdb_cluster_set.changed or influxdb_purge_peer_data
 
 - name: Pause for a moment
   pause:
-    seconds: 5
+    seconds: 3
   when: influxdb_cluster_set.changed or influxdb_purge_peer_data
   
 - name: Collect cluster status
@@ -57,6 +64,6 @@
   assert:
     that:
       - "influxdb_show_servers_output.stdout.find(item)"
-  with_items: groups['influxdb']|default([], True)
+  with_items: groups['influxdb']|default([])
   when: "'influxdb' in groups and is_vagrant == False"
   
