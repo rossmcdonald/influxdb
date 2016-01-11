@@ -27,6 +27,7 @@ influxdb_disable_reporting: "false"
 influxdb_configuration_dir: /etc/influxdb
 
 ## Meta Settings
+influxdb_meta_enabled: "true"
 influxdb_meta_dir: /var/lib/influxdb/meta
 influxdb_meta_hostname: localhost
 influxdb_meta_port: 8088
@@ -38,8 +39,9 @@ influxdb_meta_commit_timeout: 50ms
 influxdb_meta_cluster_tracing: "false"
 
 ## Data Settings
+influxdb_data_enabled: "true"
 influxdb_data_dir: /var/lib/influxdb/data
-influxdb_data_engine: "b1"
+influxdb_data_engine: "tsm1"
 influxdb_data_max_wal_size: 104857600
 influxdb_data_wal_flush_interval: 10m0s
 influxdb_data_wal_partition_flush_delay: 2s

@@ -25,4 +25,9 @@
     name: "{{ influxdb_install_url }}"
     state: present
   when: influxdb_install_url is defined and influxdb_install_url != None
-  
+
+- name: Capture installed InfluxDB version
+  command: rpm -q influxdb
+  register: reg_influxdb_version
+
+- debug: var=reg_influxdb_version.stdout_lines

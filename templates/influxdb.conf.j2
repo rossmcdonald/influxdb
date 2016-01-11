@@ -16,6 +16,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 ###
 
 [meta]
+  enabled = "{{ influxdb_meta_enabled }}"
   dir = "{{ influxdb_meta_dir }}"
   hostname = "{{ influxdb_meta_hostname }}"
   bind-address = ":{{ influxdb_meta_port }}"
@@ -33,6 +34,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 ###
 
 [data]
+  enabled = "{{ influxdb_data_enabled }}"
   dir = "{{ influxdb_data_dir }}"
   engine = "{{ influxdb_data_engine }}"
 
