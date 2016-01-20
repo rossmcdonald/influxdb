@@ -3,21 +3,24 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
+  # config.vm.box = "ubuntu/wily64"
+  # config.vm.box = "sgallen/wily64"
   # config.vm.box = "ubuntu/vivid64"
   # config.vm.box = "relativkreativ/centos-7-minimal"
   # config.vm.box = "box-cutter/fedora22"
   # config.vm.box = "puppetlabs/centos-6.6-64-nocm"
+  # config.vm.box = "debian/jessie64"
 
   BOX_COUNT = 1
   (1..BOX_COUNT).each do |machine_id|
     config.vm.define "influx#{machine_id}" do |machine|
       machine.vm.hostname = "influx#{machine_id}"
-      # machine.vm.network "private_network", ip: "10.0.3.#{1+machine_id}", virtualbox__intnet: true
+      machine.vm.network "private_network", type: "dhcp"
       # machine.vm.network "public_network"
-      machine.vm.network "public_network", :bridge => 'en0: Wi-Fi (AirPort)'
+      # machine.vm.network "public_network", :bridge => 'en0: Wi-Fi (AirPort)'
       
       machine.vm.provider "virtualbox" do |v|
-        v.memory = 512
+        v.memory = 1024
         v.cpus = 1
       end
 
@@ -25,11 +28,11 @@ Vagrant.configure(2) do |config|
         machine.vm.provision "ansible" do |ansible|
           # ansible.verbose = 'vvvv'
           ansible.limit = 'all'
-          ansible.playbook = "test.yml"
-          # ansible.playbook = "playbooks/0.9.4.2_to_0.9.5.1_upgrade_path.yml"
-          # ansible.playbook = "playbooks/0.9.5.1_to_0.9.6_upgrade_path.yml"
-          # ansible.playbook = "playbooks/0.9.4.2_to_0.9.6_upgrade_path.yml"
-          # ansible.playbook = "playbooks/0.9.4.2_to_0.9.5.1_to_0.9.6_upgrade_path.yml"
+          if BOX_COUNT > 1
+            ansible.playbook = "test.yml"
+          else
+            ansible.playbook = "cluster-test.yml"
+          end
           ansible.sudo = true
           ansible.host_key_checking = false
           ansible.extra_vars = {
