@@ -2,13 +2,13 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/trusty64"
+  # config.vm.box = "ubuntu/trusty64"
   # config.vm.box = "ubuntu/wily64"
   # config.vm.box = "sgallen/wily64"
   # config.vm.box = "ubuntu/vivid64"
   # config.vm.box = "relativkreativ/centos-7-minimal"
   # config.vm.box = "box-cutter/fedora22"
-  # config.vm.box = "puppetlabs/centos-6.6-64-nocm"
+  config.vm.box = "puppetlabs/centos-6.6-64-nocm"
   # config.vm.box = "debian/jessie64"
 
   BOX_COUNT = 1
@@ -29,9 +29,9 @@ Vagrant.configure(2) do |config|
           # ansible.verbose = 'vvvv'
           ansible.limit = 'all'
           if BOX_COUNT > 1
-            ansible.playbook = "test.yml"
-          else
             ansible.playbook = "cluster-test.yml"
+          else
+            ansible.playbook = "test.yml"
           end
           ansible.sudo = true
           ansible.host_key_checking = false
