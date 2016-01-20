@@ -4,6 +4,9 @@
     path: "{{ influxdb_configuration_dir }}"
     state: directory
 
+- debug:
+    var: hostvars
+
 - name: Set templatized InfluxDB configuration
   template: 
     src: influxdb.conf.j2 

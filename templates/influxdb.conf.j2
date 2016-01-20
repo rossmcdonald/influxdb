@@ -8,6 +8,10 @@
 # Change this option to true to disable reporting.
 reporting-disabled = {{ influxdb_disable_reporting }}
 
+dir = ""
+hostname = "{{ ansible_hostname }}"
+bind-address = ""
+
 ###
 ### [meta]
 ###
@@ -16,16 +20,22 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 ###
 
 [meta]
-  enabled = "{{ influxdb_meta_enabled }}"
+  enabled = {{ influxdb_meta_enabled }}
   dir = "{{ influxdb_meta_dir }}"
-  hostname = "{{ influxdb_meta_hostname }}"
-  bind-address = ":{{ influxdb_meta_port }}"
+  bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_meta_port }}"
+  http-bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_meta_http_port }}"
   retention-autocreate = {{ influxdb_meta_retention_autocreate }}
   election-timeout = "{{ influxdb_meta_election_timeout }}"
   heartbeat-timeout = "{{ influxdb_meta_heartbeat_timeout }}"
   leader-lease-timeout = "{{ influxdb_meta_leader_lease_timeout }}"
   commit-timeout = "{{ influxdb_meta_commit_timeout }}"
   cluster-tracing = {{ influxdb_meta_cluster_tracing }}
+  https-enabled = false
+  https-certificate = ""
+  raft-promotion-enabled = true
+  logging-enabled = true
+  pprof-enabled = false
+  lease-duration = "1m0s"
 
 ###
 ### [data]
@@ -34,7 +44,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 ###
 
 [data]
-  enabled = "{{ influxdb_data_enabled }}"
+  enabled = {{ influxdb_data_enabled }}
   dir = "{{ influxdb_data_dir }}"
   engine = "{{ influxdb_data_engine }}"
 
@@ -67,7 +77,16 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # bytes. Remember there are 5 partitions so you'll need at least 5x this amount of memory.
   # The more memory you have, the bigger this can be.
   # wal-partition-size-threshold = {{ influxdb_data_wal_partition_size_threshold }}
-  
+
+  query-log-enabled = true
+  cache-max-memory-size = 524288000
+  cache-snapshot-memory-size = 26214400
+  cache-snapshot-write-cold-duration = "1h0m0s"
+  compact-min-file-count = 3
+  compact-full-write-cold-duration = "24h0m0s"
+  max-points-per-block = 0
+  data-logging-enabled = true
+
 ###
 ### [cluster]
 ###
@@ -112,6 +131,9 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   store-enabled = {{ influxdb_monitor_store_enabled }}
   store-database = "{{ influxdb_monitor_store_database }}"
   store-interval = "{{ influxdb_monitor_store_interval }}"
+
+[subscriber]
+  enabled = true
 
 ###
 ### [http]

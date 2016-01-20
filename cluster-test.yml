@@ -1,0 +1,12 @@
+- hosts: all
+  vars_files:
+    - defaults/main.yml
+    - vars/main.yml
+  tasks:
+    - include: tasks/main.yml
+      influxdb_install_url: https://s3-us-west-1.amazonaws.com/influxdata-downloads/influxdb_0.10.0-0.meta-service_amd64.deb
+      influxdb_cluster_servers: yes
+      influxdb_monitor_store_enabled: "false"
+      influxdb_purge_peer_data: yes
+  handlers:
+    - include: handlers/main.yml
