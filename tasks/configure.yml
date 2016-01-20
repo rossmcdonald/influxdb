@@ -4,9 +4,6 @@
     path: "{{ influxdb_configuration_dir }}"
     state: directory
 
-- debug:
-    var: hostvars
-
 - name: Set templatized InfluxDB configuration
   template: 
     src: influxdb.conf.j2 
@@ -17,28 +14,3 @@
     group: influxdb
     mode: 0744
   when: influxdb_template_configuration
-  
-- name: Start the InfluxDB service
-  service:
-    name: influxdb
-    state: restarted
-    enabled: yes
-  register: influxdb_started
-  when: influxdb_start_service
-
-- name: Pause to ensure InfluxDB service is up
-  pause:
-    seconds: 3
-  when: influxdb_started.changed and influxdb_start_service
-  
-- name: Collect service status
-  command: service influxdb status
-  register: influxdb_service_status
-  when: influxdb_start_service
-  ignore_errors: yes
-
-- name: Assert status of InfluxDB service
-  assert:
-    that:
-      - "influxdb_service_status.rc == 0"
-  when: influxdb_start_service

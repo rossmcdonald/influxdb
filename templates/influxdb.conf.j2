@@ -8,9 +8,10 @@
 # Change this option to true to disable reporting.
 reporting-disabled = {{ influxdb_disable_reporting }}
 
-dir = ""
-hostname = "{{ ansible_hostname }}"
-bind-address = ""
+# Commenting these out, as they cause issues in the current iteration
+#dir = ""
+#hostname = "{{ ansible_all_ipv4_addresses|last }}"
+#bind-address = ""
 
 ###
 ### [meta]
@@ -105,7 +106,6 @@ bind-address = ""
 ###
 ### Controls the enforcement of retention policies for evicting old data.
 ###
-
 [retention]
   enabled = {{ influxdb_retention_enabled }}
   check-interval = "{{ influxdb_retention_check_interval }}"

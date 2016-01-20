@@ -1,6 +1,6 @@
-127.0.0.1   {{ ansible_fqdn }} localhost localhost.localdomain localhost4 localhost4.localdomain4
-{{ ansible_all_ipv4_addresses|last }}  {{ ansible_hostname }}
+127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain4
 
+{{ ansible_all_ipv4_addresses|last }}		{{ ansible_hostname }}
 {% for host in groups['all'] %}
 {% if host != "localhost" and hostvars[host]['ansible_hostname'] != ansible_hostname %}
 {{ hostvars[host]['ansible_all_ipv4_addresses'] | last }}   {{ hostvars[host]['ansible_hostname'] }}

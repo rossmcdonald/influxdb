@@ -27,32 +27,32 @@
     - "{{ influxdb_meta_dir }}/peers.json"
   when: influxdb_cluster_set.changed or influxdb_purge_peer_data
   
-- name: Start InfluxDB
-  service: 
-    name: influxdb
-    state: started
-  when: influxdb_cluster_set.changed or influxdb_purge_peer_data
+# - name: Start InfluxDB
+#   service: 
+#     name: influxdb
+#     state: started
+#   when: influxdb_cluster_set.changed or influxdb_purge_peer_data
 
-- name: Pause for a moment
-  pause:
-    seconds: 3
-  when: influxdb_cluster_set.changed or influxdb_purge_peer_data
+# - name: Pause for a moment
+#   pause:
+#     seconds: 3
+#   when: influxdb_cluster_set.changed or influxdb_purge_peer_data
   
-- name: Collect cluster status
-  command: "{{ influxdb_binary_path }}/influx -execute 'show servers'"
-  register: influxdb_show_servers_output
+# - name: Collect cluster status
+#   command: "{{ influxdb_binary_path }}/influx -execute 'show servers'"
+#   register: influxdb_show_servers_output
 
-- name: Assert clustering status (local/vagrant)
-  assert:
-    that:
-      - "influxdb_show_servers_output.stdout.find(item)"
-  with_items: groups['all']
-  when: is_vagrant
+# - name: Assert clustering status (local/vagrant)
+#   assert:
+#     that:
+#       - "influxdb_show_servers_output.stdout.find(item)"
+#   with_items: groups['all']
+#   when: is_vagrant
 
-- name: Assert clustering status (non-local)
-  assert:
-    that:
-      - "influxdb_show_servers_output.stdout.find(item)"
-  with_items: groups['influxdb']|default([])
-  when: "'influxdb' in groups and is_vagrant == False"
+# - name: Assert clustering status (non-local)
+#   assert:
+#     that:
+#       - "influxdb_show_servers_output.stdout.find(item)"
+#   with_items: groups['influxdb']|default([])
+#   when: "'influxdb' in groups and is_vagrant == False"
   
