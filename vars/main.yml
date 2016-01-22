@@ -11,7 +11,7 @@ is_vagrant: no
 influxdb_install_url:
 
 # Whether or not to purge peer data on each run (useful for cluster testing). NOTE: This will
-# cause data loss on an active cluster, so use caution
+# cause catastrophic data loss on an active cluster/instance, so use caution.
 influxdb_purge_peer_data: no
 
 # If yes, service will be started. Will not be started if set to no.
@@ -19,6 +19,9 @@ influxdb_start_service: yes
 
 # If yes, will overwrite the packaged configuration with an Asnible/jinja2 template
 influxdb_template_configuration: yes
+
+# If yes, will run a templatized stress test against a target instance
+influxdb_run_stress: no
 
 # If supplied, will check for presence of database, and error if not found (useful for upgrade
 # testing).
