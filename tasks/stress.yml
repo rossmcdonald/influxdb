@@ -1,9 +1,10 @@
 ---
 
 - name: Set templated stress configuration
-  templates:
+  template:
     src: stress/stress_nightly_round_robin_autoprovision.toml
     dest: /etc/influxdb/stress.toml
+    force: yes
   when: influxdb_run_stress
 
 - name: Run stress tool
