@@ -9,4 +9,10 @@
 
 - name: Run stress tool
   command: influx_stress -config /etc/influxdb/stress.toml
+  register: influx_stress_run
+  when: influxdb_run_stress
+
+- name: Display run output
+  debug:
+    var: influx_stress_run.stdout
   when: influxdb_run_stress
