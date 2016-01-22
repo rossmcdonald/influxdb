@@ -10,7 +10,7 @@
     # Database the will be created/deleted
     database = "stress"
     # Attempt to delete database
-    reset_database = false
+    reset_database = true
 
 # This section cannot be commented out
 # To prevent writes set `enabled=false`
