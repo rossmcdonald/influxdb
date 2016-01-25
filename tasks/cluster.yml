@@ -22,10 +22,10 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "{{ influxdb_meta_dir }}/id"
-    - "{{ influxdb_meta_dir }}/raft.db"
-    - "{{ influxdb_meta_dir }}/peers.json"
-  when: influxdb_cluster_set.changed or influxdb_purge_peer_data
+    - "{{ influxdb_meta_dir }}"
+    - "{{ influxdb_data_dir }}"
+    - "{{ influxdb_data_wal_dir }}"
+  when: influxdb_purge_peer_data
   
 # - name: Start InfluxDB
 #   service: 

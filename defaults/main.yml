@@ -9,7 +9,7 @@ influxdb_install_version: stable
 influxdb_cluster_servers: no
 # When clustering is enabled, whether or not to overwrite the /etc/hosts file with raw
 # IPs (may be useful if no DNS resolution).
-influxdb_overwrite_hosts_file: yes
+influxdb_overwrite_hosts_file: no
 
 # Whether to load sample data (randomly generated integers) into a test database
 # NOTE: sample data cannot be loaded if authentication is enabled
