@@ -123,7 +123,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [admin]
   enabled = {{ influxdb_admin_enabled }}
-  bind-address = ":{{ influxdb_admin_port }}"
+  bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_admin_port }}"
   https-enabled = {{ influxdb_admin_https_enabled }}
   https-certificate = "{{ influxdb_admin_https_certificate }}"
 
@@ -144,7 +144,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [http]
   enabled = {{ influxdb_http_enabled }}
-  bind-address = ":{{ influxdb_http_port }}"
+  bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_http_port }}"
   auth-enabled = {{ influxdb_http_auth_enabled }}
   log-enabled = {{ influxdb_http_log_enabled }}
   write-tracing = {{ influxdb_http_write_tracing }}
