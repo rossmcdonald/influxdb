@@ -3,12 +3,12 @@
 - name: Set templated stress configuration
   template:
     src: stress/stress_nightly_round_robin_autoprovision.toml
-    dest: /etc/influxdb/stress.toml
+    dest: "{{ influxdb_configuration_dir }}/stress.toml"
     force: yes
   when: influxdb_run_stress
 
 - name: Run stress tool
-  command: influx_stress -config /etc/influxdb/stress.toml
+  command: influx_stress -config {{ influxdb_configuration_dir }}/stress.toml
   register: influx_stress_run
   when: influxdb_run_stress
 
