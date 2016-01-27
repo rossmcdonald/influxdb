@@ -15,3 +15,13 @@
 
 - include: install-debian.yml
   when: ansible_os_family == "Debian"
+
+- name: Capture InfluxDB version information
+  command: influxd version
+  register: influxdb_runtime_version_raw
+
+- name: Capture InfluxDB version, branch, and commit
+  set_fact:
+    influxdb_runtime_version: "{{ influxdb_runtime_version_raw.stdout.split()[1] }}"
+    influxdb_runtime_branch: "{{ influxdb_runtime_version_raw.stdout.split()[3] }}"
+    influxdb_runtime_commit: "{{ influxdb_runtime_version_raw.stdout.split()[4] }}"

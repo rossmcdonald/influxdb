@@ -40,10 +40,3 @@
     deb: /tmp/influxdb-ansible-download.deb
     state: present
   when: influxdb_install_url is defined and influxdb_install_url != None
-
-- name: Capture installed InfluxDB version
-  command: dpkg -l influxdb
-  register: reg_influxdb_version
-
-- debug: var=reg_influxdb_version.stdout_lines
-  
