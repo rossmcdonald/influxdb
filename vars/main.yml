@@ -22,6 +22,12 @@ influxdb_template_configuration: yes
 
 # If yes, will run a templatized stress test against a target instance
 influxdb_run_stress: no
+# Destination for influx_stress metrics (ie http://localhost:8086)
+influxdb_stress_metric_endpoint:
+# Destination database for influx_stress metrics
+influxdb_stress_metric_database:
+# Tag string to pass to influx_stress (ie tag1=orange,tag2=banana)
+influxdb_stress_metric_tags:
 
 # If supplied, will check for presence of database, and error if not found (useful for upgrade
 # testing).

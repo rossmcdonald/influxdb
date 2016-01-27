@@ -8,11 +8,11 @@
   when: influxdb_run_stress
 
 - name: Run stress tool
-  command: influx_stress -config {{ influxdb_configuration_dir }}/stress.toml
+  command: influx_stress -config {{ influxdb_configuration_dir }}/stress.toml {% if influxdb_stress_metric_endpoint != None %}-addr "{{ influxdb_stress_metric_endpoint }}" {% endif %}{% if influxdb_stress_metric_database != None %}-database "{{ influxdb_stress_metric_database }}" {% endif %}{% if influxdb_stress_metric_tags != None %}-tags "{{ influxdb_stress_metric_tags }}" {% endif %}
   register: influx_stress_run
   when: influxdb_run_stress
 
-- name: Display run output
+- name: Display stress results output
   debug:
     var: influx_stress_run.stdout
   when: influxdb_run_stress
