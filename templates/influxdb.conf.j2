@@ -8,11 +8,6 @@
 # Change this option to true to disable reporting.
 reporting-disabled = {{ influxdb_disable_reporting }}
 
-# Commenting these out, as they cause issues in the current iteration
-#dir = ""
-#hostname = "{{ ansible_all_ipv4_addresses|last }}"
-#bind-address = ""
-
 ###
 ### [meta]
 ###
@@ -23,8 +18,8 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 [meta]
   enabled = {{ influxdb_meta_enabled }}
   dir = "{{ influxdb_meta_dir }}"
-  bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_meta_port }}"
-  http-bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_meta_http_port }}"
+  bind-address = "{{ ansible_hostname }}:{{ influxdb_meta_port }}"
+  http-bind-address = "{{ ansible_hostname }}:{{ influxdb_meta_http_port }}"
   retention-autocreate = {{ influxdb_meta_retention_autocreate }}
   election-timeout = "{{ influxdb_meta_election_timeout }}"
   heartbeat-timeout = "{{ influxdb_meta_heartbeat_timeout }}"
@@ -123,7 +118,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [admin]
   enabled = {{ influxdb_admin_enabled }}
-  bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_admin_port }}"
+  bind-address = "{{ ansible_hostname }}:{{ influxdb_admin_port }}"
   https-enabled = {{ influxdb_admin_https_enabled }}
   https-certificate = "{{ influxdb_admin_https_certificate }}"
 
@@ -144,7 +139,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [http]
   enabled = {{ influxdb_http_enabled }}
-  bind-address = "{{ ansible_all_ipv4_addresses|last }}:{{ influxdb_http_port }}"
+  bind-address = "{{ ansible_hostname }}:{{ influxdb_http_port }}"
   auth-enabled = {{ influxdb_http_auth_enabled }}
   log-enabled = {{ influxdb_http_log_enabled }}
   write-tracing = {{ influxdb_http_write_tracing }}
