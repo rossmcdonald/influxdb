@@ -5,7 +5,6 @@
   tasks:
     - include: tasks/main.yml
       influxdb_cluster_servers: yes
-      influxdb_purge_peer_data: yes
       influxdb_overwrite_hosts_file: yes
   handlers:
     - include: handlers/main.yml
