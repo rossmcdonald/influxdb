@@ -190,12 +190,12 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # ignore-unnamed = {{ influxdb_graphite_ignore_unnamed }}
 
 ###
-### [collectd]
+### [[collectd]]
 ###
 ### Controls the listener for collectd data.
 ###
 
-[collectd]
+[[collectd]]
   enabled = {{ influxdb_collectd_enabled }}
   bind-address = ":{{ influxdb_collectd_port }}"
   database = "{{ influxdb_collectd_database }}"
@@ -206,12 +206,12 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   typesdb = "{{ influxdb_collectd_typesdb }}"
 
 ###
-### [opentsdb]
+### [[opentsdb]]
 ###
 ### Controls the listener for OpenTSDB data.
 ###
 
-[opentsdb]
+[[opentsdb]]
   enabled = {{ influxdb_opentsdb_enabled }}
   # bind-address = ":{{ influxdb_opentsdb_port }}"
   # database = "{{ influxdb_opentsdb_database }}"
