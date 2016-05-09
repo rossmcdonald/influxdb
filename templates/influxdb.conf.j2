@@ -18,8 +18,8 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 [meta]
   enabled = {{ influxdb_meta_enabled }}
   dir = "{{ influxdb_meta_dir }}"
-  bind-address = "{{ ansible_hostname }}:{{ influxdb_meta_port }}"
-  http-bind-address = "{{ ansible_hostname }}:{{ influxdb_meta_http_port }}"
+  bind-address = "{{ influxdb_bind_hostname }}:{{ influxdb_meta_port }}"
+  http-bind-address = "{{ influxdb_bind_hostname }}:{{ influxdb_meta_http_port }}"
   retention-autocreate = {{ influxdb_meta_retention_autocreate }}
   election-timeout = "{{ influxdb_meta_election_timeout }}"
   heartbeat-timeout = "{{ influxdb_meta_heartbeat_timeout }}"
@@ -118,7 +118,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [admin]
   enabled = {{ influxdb_admin_enabled }}
-  bind-address = "{{ ansible_hostname }}:{{ influxdb_admin_port }}"
+  bind-address = "{{ influxdb_bind_hostname }}:{{ influxdb_admin_port }}"
   https-enabled = {{ influxdb_admin_https_enabled }}
   https-certificate = "{{ influxdb_admin_https_certificate }}"
 
@@ -139,7 +139,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 [http]
   enabled = {{ influxdb_http_enabled }}
-  bind-address = "{{ ansible_hostname }}:{{ influxdb_http_port }}"
+  bind-address = "{{ influxdb_bind_hostname }}:{{ influxdb_http_port }}"
   auth-enabled = {{ influxdb_http_auth_enabled }}
   log-enabled = {{ influxdb_http_log_enabled }}
   write-tracing = {{ influxdb_http_write_tracing }}
@@ -190,12 +190,20 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # ignore-unnamed = {{ influxdb_graphite_ignore_unnamed }}
 
 ###
+{% if influxdb_runtime_version | version_compare('0.11', '<') %}
 ### [[collectd]]
+{% else %}
+### [collectd]
+{% endif %}
 ###
 ### Controls the listener for collectd data.
 ###
 
+{% if influxdb_runtime_version | version_compare('0.11', '<') %}
 [[collectd]]
+{% else %}
+[collectd]
+{% endif %}
   enabled = {{ influxdb_collectd_enabled }}
   bind-address = ":{{ influxdb_collectd_port }}"
   database = "{{ influxdb_collectd_database }}"
@@ -206,12 +214,20 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   typesdb = "{{ influxdb_collectd_typesdb }}"
 
 ###
+{% if influxdb_runtime_version | version_compare('0.11', '<') %}
 ### [[opentsdb]]
+{% else %}
+### [opentsdb]
+{% endif %}
 ###
 ### Controls the listener for OpenTSDB data.
 ###
 
+{% if influxdb_runtime_version | version_compare('0.11', '<') %}
 [[opentsdb]]
+{% else %}
+[opentsdb]
+{% endif %}
   enabled = {{ influxdb_opentsdb_enabled }}
   # bind-address = ":{{ influxdb_opentsdb_port }}"
   # database = "{{ influxdb_opentsdb_database }}"

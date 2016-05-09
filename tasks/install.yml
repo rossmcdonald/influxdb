@@ -16,6 +16,13 @@
 - include: install-debian.yml
   when: ansible_os_family == "Debian"
 
+- name: Install InfluxDB python client package [PIP]
+  pip: >
+    name=influxdb
+    state={{ influxdb_python_client_state | default(omit) }}
+    version={{ influxdb_python_client_version | default(omit) }}
+  when: influxdb_install_python_client
+
 - name: Capture InfluxDB version information
   command: influxd version
   register: influxdb_runtime_version_raw

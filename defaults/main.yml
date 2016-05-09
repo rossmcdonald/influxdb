@@ -17,6 +17,10 @@ influxdb_load_sample_data: no
 influxdb_sample_database_name: sample_database
 influxdb_sample_measurement_name: random_ints
 
+influxdb_bind_hostname: "{{ ansible_hostname }}"
+
+influxdb_install_python_client: no
+
 # NOTE: Since Ansible uses Python on the backend, all boolean values are capitalized when being
 # rendered (which is not valid TOML). To get around this, make sure you quote any boolean values
 # (true -> "true") to ensure correct formatting (for template variables).
