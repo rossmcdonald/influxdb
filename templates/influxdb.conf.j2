@@ -6,6 +6,7 @@
 # to track the number of instances running and the versions, which
 # is very helpful for us.
 # Change this option to true to disable reporting.
+
 reporting-disabled = {{ influxdb_disable_reporting }}
 
 ###
@@ -25,7 +26,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   heartbeat-timeout = "{{ influxdb_meta_heartbeat_timeout }}"
   leader-lease-timeout = "{{ influxdb_meta_leader_lease_timeout }}"
   commit-timeout = "{{ influxdb_meta_commit_timeout }}"
-  cluster-tracing = {{ influxdb_meta_cluster_tracing }}
+  cluster-tracing = {{ influxdb_meta_cluster_tracing|lower }}
   https-enabled = false
   https-certificate = ""
   raft-promotion-enabled = true
@@ -78,10 +79,9 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   cache-max-memory-size = 524288000
   cache-snapshot-memory-size = 26214400
   cache-snapshot-write-cold-duration = "1h0m0s"
-  compact-min-file-count = 3
   compact-full-write-cold-duration = "24h0m0s"
   max-points-per-block = 0
-  data-logging-enabled = true
+  # data-logging-enabled = true
 
 ###
 ### [cluster]
@@ -254,14 +254,6 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # batch-timeout = "{{ influxdb_udp_batch_timeout }}"
 
 ###
-### [monitoring]
-###
-
-[monitoring]
-  enabled = {{ influxdb_monitoring_enabled }}
-  write-interval = "{{ influxdb_monitoring_write_interval }}"
-
-###
 ### [continuous_queries]
 ###
 ### Controls how continuous queries are run within InfluxDB.
@@ -270,10 +262,6 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 [continuous_queries]
   log-enabled = {{ influxdb_cq_log_enabled }}
   enabled = {{ influxdb_cq_enabled }}
-  recompute-previous-n = {{ influxdb_cq_recompute_previous_n }}
-  recompute-no-older-than = "{{ influxdb_cq_recompute_no_older_than }}"
-  compute-runs-per-interval = {{ influxdb_cq_compute_runs_per_interval }}
-  compute-no-more-than = "{{ influxdb_cq_compute_no_more_than }}"
 
 ###
 ### [hinted-handoff]
@@ -290,3 +278,4 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   max-age = "{{ influxdb_hh_max_age }}"
   retry-rate-limit = {{ influxdb_hh_retry_rate_limit }}
   retry-interval = "{{ influxdb_hh_retry_interval }}"
+  purge-interval = "{{ influxdb_hh_purge_interval }}"
