@@ -1,0 +1,22 @@
+FROM centos:5
+MAINTAINER Ross McDonald <mcdonaldrossc+docker@gmail.com>
+
+# Install necessary Ansible dependencies
+RUN yum install -y wget && \
+    wget dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm && \
+    rpm -ivh epel-release-5-4.noarch.rpm && \
+    rm -f epel-release-5-4.noarch.rpm && \
+    yum install -y python26 gcc make
+    
+RUN wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py && \
+    python26 get-pip.py && \
+    rm -f get-pip.py
+
+RUN pip2.6 install ansible
+
+ENV PROJECT_DIR /root
+RUN mkdir -p $PROJECT_DIR
+
+WORKDIR $PROJECT_DIR
+VOLUME $PROJECT_DIR
+ENTRYPOINT [ "ansible-playbook", "-c", "local", "-e", "is_docker=true", "-i", "localhost," ]
