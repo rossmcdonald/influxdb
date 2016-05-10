@@ -5,10 +5,6 @@
 - include: configure.yml
   tags: [influxdb, configure]
 
-- include: cluster.yml
-  tags: [influxdb, cluster]
-  when: influxdb_cluster_servers and influxdb_start_service
-
 - name: Start the InfluxDB service
   service:
     name: influxdb
@@ -19,7 +15,7 @@
 
 - name: Pause to ensure InfluxDB service is up
   pause:
-    seconds: 3
+    seconds: 5
   when: influxdb_started.changed and influxdb_start_service
   
 - name: Collect service status

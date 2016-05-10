@@ -155,3 +155,4 @@ influxdb_hh_max_size: 1073741824
 influxdb_hh_max_age: 168h
 influxdb_hh_retry_rate_limit: 0
 influxdb_hh_retry_interval: 1s
+influxdb_hh_purge_interval: 1h

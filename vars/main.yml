@@ -31,7 +31,7 @@ influxdb_stress_metric_tags:
 
 # If supplied, will check for presence of database, and error if not found (useful for upgrade
 # testing).
-influxdb_verify_database_is_present: 
+influxdb_verify_database_is_present:
 
 # Path for finding InfluxDB binaries. Added for backwards-compatibility with < 0.9.5
 influxdb_binary_path: /usr/bin
