@@ -14,21 +14,12 @@
   when: influxdb_start_service
 
 - name: Pause to ensure InfluxDB service is up
-  pause:
-    seconds: 5
+  wait_for:
+    host: "{{ influxdb_bind_hostname }}"
+    port: "{{ influxdb_http_port }}"
+    delay: 5
+    timeout: 30
   when: influxdb_started.changed and influxdb_start_service
-  
-- name: Collect service status
-  command: service influxdb status
-  register: influxdb_service_status
-  when: influxdb_start_service
-  ignore_errors: yes
-
-- name: Assert status of InfluxDB service
-  assert:
-    that:
-      - "influxdb_service_status.rc == 0"
-  when: influxdb_start_service
   
 - include: demo.yml
   tags: [influxdb, demo]
