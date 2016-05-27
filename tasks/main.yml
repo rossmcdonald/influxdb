@@ -15,12 +15,30 @@
 
 - name: Wait for InfluxDB to come up
   wait_for:
-    host: "{{ influxdb_bind_hostname }}"
+    host: "{{ influxdb_bind_hostname | default(\"localhost\", true) }}"
     port: "{{ influxdb_http_port }}"
     delay: 5
     timeout: 30
   when: influxdb_started.changed and influxdb_start_service
-  
+  ignore_errors: yes
+  register: influxdb_start_attempt
+
+- name: Run tail on log
+  command: tail /var/log/influxdb/influxd.log
+  register: influxdb_tail_output
+  when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
+
+- name: Show log output
+  debug:
+    msg: "{{ influxdb_tail_output.stdout_lines }}"
+  when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
+
+- name: Assert status of InfluxDB service
+  assert:
+    that:
+      - "influxdb_start_attempt == 0"
+  when: influxdb_started.changed and influxdb_start_service and influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
+
 - include: demo.yml
   tags: [influxdb, demo]
   when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
