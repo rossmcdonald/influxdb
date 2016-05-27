@@ -13,7 +13,7 @@
   register: influxdb_started
   when: influxdb_start_service
 
-- name: Pause to ensure InfluxDB service is up
+- name: Wait for InfluxDB to come up
   wait_for:
     host: "{{ influxdb_bind_hostname }}"
     port: "{{ influxdb_http_port }}"
