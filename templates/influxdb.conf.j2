@@ -190,7 +190,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # ignore-unnamed = {{ influxdb_graphite_ignore_unnamed }}
 
 ###
-{% if influxdb_runtime_version | version_compare('0.11', '<') %}
+{% if influxdb_runtime_version | version_compare('0.11', '>') %}
 ### [[collectd]]
 {% else %}
 ### [collectd]
@@ -199,7 +199,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 ### Controls the listener for collectd data.
 ###
 
-{% if influxdb_runtime_version | version_compare('0.11', '<') %}
+{% if influxdb_runtime_version | version_compare('0.11', '>') %}
 [[collectd]]
 {% else %}
 [collectd]
@@ -214,7 +214,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   typesdb = "{{ influxdb_collectd_typesdb }}"
 
 ###
-{% if influxdb_runtime_version | version_compare('0.11', '<') %}
+{% if influxdb_runtime_version | version_compare('0.11', '>') %}
 ### [[opentsdb]]
 {% else %}
 ### [opentsdb]
@@ -223,7 +223,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 ### Controls the listener for OpenTSDB data.
 ###
 
-{% if influxdb_runtime_version | version_compare('0.11', '<') %}
+{% if influxdb_runtime_version | version_compare('0.11', '>') %}
 [[opentsdb]]
 {% else %}
 [opentsdb]
