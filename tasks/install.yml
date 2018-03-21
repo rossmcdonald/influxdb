@@ -18,6 +18,6 @@
 
 - name: Capture InfluxDB version, branch, and commit
   set_fact:
-    influxdb_runtime_version: "{{ influxdb_runtime_version_raw.stdout.split()[1] }}"
+    influxdb_runtime_version: "{{ influxdb_runtime_version_raw.stdout.split()[1].replace('v','') }}"
     influxdb_runtime_branch: "{{ influxdb_runtime_version_raw.stdout.split()[3] }}"
     influxdb_runtime_commit: "{{ influxdb_runtime_version_raw.stdout.split()[4] }}"
