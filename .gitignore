@@ -6,3 +6,4 @@ venv/
 *rpm
 scratch/
 .bundle/
+.idea/
