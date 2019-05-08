@@ -1,6 +1,10 @@
 [influxdb]
 name = InfluxDB Repository - {{ ansible_distribution }} $releasever
+{% if ansible_distribution == "RedHat" %}
+baseurl = https://repos.influxdata.com/rhel/$releasever/$basearch/{{ influxdb_install_version }}
+{% else %}
 baseurl = https://repos.influxdata.com/{{ ansible_distribution|lower }}/$releasever/$basearch/{{ influxdb_install_version }}
+{% endif %}
 enabled = 1
 gpgcheck = 1
 gpgkey = https://repos.influxdata.com/influxdb.key
