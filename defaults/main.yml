@@ -47,6 +47,7 @@ influxdb_meta_cluster_tracing: "false"
 influxdb_data_enabled: "true"
 influxdb_data_dir: /var/lib/influxdb/data
 influxdb_data_engine: "tsm1"
+influxdb_data_query_log_enabled: "true"
 influxdb_data_max_wal_size: 104857600
 influxdb_data_wal_flush_interval: 10m0s
 influxdb_data_wal_partition_flush_delay: 2s
