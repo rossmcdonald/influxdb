@@ -75,7 +75,7 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # The more memory you have, the bigger this can be.
   # wal-partition-size-threshold = {{ influxdb_data_wal_partition_size_threshold }}
 
-  query-log-enabled = true
+  query-log-enabled = {{ influxdb_data_query_log_enabled }}
   cache-max-memory-size = 524288000
   cache-snapshot-memory-size = 26214400
   cache-snapshot-write-cold-duration = "1h0m0s"
