@@ -241,18 +241,20 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # batch-timeout = "{{ influxdb_opentsdb_batch_timeout }}"
 
 ###
-### [udp]
+### [[udp]]
 ###
 ### Controls the listener for InfluxDB line protocol data via UDP.
 ###
 
   # TODO: Including the udp table prevents service from starting (even if disabled)
-  # [udp]
-  #   enabled = {{ influxdb_udp_enabled }}
+  # [[udp]]
+  # enabled = {{ influxdb_udp_enabled }}
   # bind-address = "{{ influxdb_udp_bind_address }}"
   # database = "{{ influxdb_udp_database }}"
   # batch-size = {{ influxdb_udp_batch_size }}
   # batch-timeout = "{{ influxdb_udp_batch_timeout }}"
+  # batch-pending = {{ influxdb_udp_batch_pending }} # number of batches that may be pending in memory
+  # read-buffer = {{ influxdb_udp_read_buffer }} # UDP read buffer size, 0 means to use OS default
 
 ###
 ### [continuous_queries]
