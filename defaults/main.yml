@@ -137,6 +137,8 @@ influxdb_udp_bind_address: ""
 influxdb_udp_database: ""
 influxdb_udp_batch_size: 0
 influxdb_udp_batch_timeout: 0
+influxdb_udp_batch_pending: 10
+influxdb_udp_read_buffer: 0
 
 ## Monitoring Settings
 influxdb_monitoring_enabled: "true"
