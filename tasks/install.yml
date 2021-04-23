@@ -18,6 +18,7 @@
 - name: Capture InfluxDB version information
   command: influxd version
   register: influxdb_runtime_version_raw
+  check_mode: false
 
 - name: Capture InfluxDB version, branch, and commit
   set_fact:
