@@ -190,6 +190,14 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   ## Otherwise an error will be logged and the metric rejected.
   # ignore-unnamed = {{ influxdb_graphite_ignore_unnamed }}
 
+{% if influxdb_graphite_templates %}
+  templates = [
+{% for template in influxdb_graphite_templates %}
+    "{{ template }}",
+{% endfor %}
+  ]
+{% endif %}
+
 ###
 {% if influxdb_runtime_version is version('0.11', '>') %}
 ### [[collectd]]
