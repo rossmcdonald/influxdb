@@ -3,6 +3,7 @@ galaxy_info:
   author: Ross McDonald
   description: Install and configure InfluxDB, a time-series database
   company: InfluxData
+  role_name: influxdb
   license: MIT
   min_ansible_version: 2.5
   platforms:
@@ -12,6 +13,8 @@ galaxy_info:
         - 7
     - name: Ubuntu
       versions:
+        - bionic
+        - focal
         - trusty
         - utopic
         - vivid

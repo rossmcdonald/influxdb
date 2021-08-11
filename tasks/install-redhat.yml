@@ -1,17 +1,13 @@
 ---
 - name: Install any necessary dependencies [RedHat/CentOS]
   yum: 
-    name: "{{ item }}" 
+    name: curl
     state: present
-  with_items:
-    - curl
 
 - name: Install any necessary PIP dependencies [RedHat/CentOS]
   yum: 
-    name: "{{ item }}" 
+    name: python-pip
     state: present
-  with_items:
-    - python-pip
   when: influxdb_install_python_client
 
 - name: Add InfluxData repository file [RHEL/CentOS]

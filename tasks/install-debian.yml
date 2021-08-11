@@ -1,24 +1,21 @@
 ---
 - name: Install any necessary dependencies [Debian/Ubuntu]
   apt: 
-    name: "{{ item }}" 
+    name:
+      - python-httplib2
+      - python-apt
+      - curl
+      - apt-transport-https
     state: present 
     update_cache: yes 
     cache_valid_time: 3600
-  with_items:
-    - python-httplib2
-    - python-apt
-    - curl
-    - apt-transport-https
     
 - name: Install any necessary PIP dependencies [Debian/Ubuntu]
   apt: 
-    name: "{{ item }}" 
+    name: python-pip
     state: present 
     update_cache: yes 
     cache_valid_time: 3600
-  with_items:
-    - python-pip
   when: influxdb_install_python_client
 
 - name: Import InfluxData GPG signing key [Debian/Ubuntu]
