@@ -108,6 +108,7 @@ influxdb_graphite_batch_pending: 5
 influxdb_graphite_batch_timeout: 1s
 influxdb_graphite_name_schema: type.host.measurement.device
 influxdb_graphite_ignore_unnamed: "true"
+influxdb_graphite_templates: []
 
 ## Collectd Settings
 influxdb_collectd_enabled: "false"
