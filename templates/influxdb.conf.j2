@@ -84,13 +84,13 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   # data-logging-enabled = true
 
 ###
-### [cluster]
+### [cordinator]
 ###
 ### Controls non-Raft cluster behavior, which generally includes how data is
 ### shared across shards.
 ###
 
-[cluster]
+[cordinator]
   shard-writer-timeout = "{{ influxdb_cluster_shard_writer_timeout }}"
   force-remote-mapping = {{ influxdb_cluster_force_remote_mapping }}
   write-timeout = "{{ influxdb_cluster_write_timeout }}"
