@@ -2,6 +2,9 @@
 # Channel of InfluxDB to install (stable, unstable, nightly)
 influxdb_install_version: stable
 
+# InfluxDB package to install (influxdb, influxdb2)
+influxdb_install_package: influxdb
+
 # If multiple servers are specified, whether to create a clustered configuration
 # NOTE:
 #   - Do not attempt to cluster previously-unclustered servers. This can lead to data loss.
@@ -93,6 +96,7 @@ influxdb_http_log_enabled: "true"
 influxdb_http_write_tracing: "false"
 influxdb_http_pprof_enabled: "false"
 influxdb_http_https_enabled: "false"
+influxdb_http_flux_enabled: "false"
 influxdb_http_https_certificate: /etc/ssl/influxdb.pem
 influxdb_http_https_certificate_key: /etc/ssl/influxdb_key.pem
 
