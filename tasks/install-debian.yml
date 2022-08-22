@@ -2,10 +2,12 @@
 - name: Install any necessary dependencies [Debian/Ubuntu]
   apt: 
     name:
-      - python-httplib2
-      - python-apt
+      - python3-httplib2
+      - python3-apt
       - curl
       - apt-transport-https
+      - gpg
+      - gpg-agent
     state: present 
     update_cache: yes 
     cache_valid_time: 3600
