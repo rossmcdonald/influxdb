@@ -1,37 +1,32 @@
 ---
 - name: Install any necessary dependencies [RedHat/CentOS]
-  yum: 
+  ansible.builtin.yum:
     name: curl
     state: present
 
 - name: Install any necessary PIP dependencies [RedHat/CentOS]
-  yum: 
+  ansible.builtin.yum:
     name: python-pip
     state: present
   when: influxdb_install_python_client
 
 - name: Add InfluxData repository file [RHEL/CentOS]
-  template:
+  ansible.builtin.template:
     src: etc/yum.repos.d/influxdata.repo.j2
     dest: /etc/yum.repos.d/influxdata.repo
-    force: yes
-    backup: yes
+    force: true
+    backup: true
+    mode: 0644
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB packages [RHEL/CentOS]
-  yum: 
+  ansible.builtin.yum:
     name: influxdb
-    state: latest
+    state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB from URL [RHEL/CentOS]
-  yum: 
+  ansible.builtin.yum:
     name: "{{ influxdb_install_url }}"
     state: present
   when: influxdb_install_url is defined and influxdb_install_url != None
-
-- name: Capture installed InfluxDB version
-  command: rpm -q influxdb
-  register: reg_influxdb_version
-
-- debug: var=reg_influxdb_version.stdout_lines

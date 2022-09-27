@@ -45,7 +45,7 @@ function build_opensuse_hearlequin {
     info "Building OpenSUSE Harlequin container..."
     docker build -f Dockerfile_opensuse_harlequin -t ${TAG}:opensuse_harlequin . || err "Could not build OpenSuse Harlequin container"
 }
-    
+
 function build_opensuse_leap {
     info "Building OpenSUSE Leap container..."
     docker build -f Dockerfile_opensuse_leap -t ${TAG}:opensuse_leap . || err "Could not build OpenSuse Leap container"
@@ -86,42 +86,42 @@ then
 else
     while [ "$1" != "" ]
     do
-        case "$1" in 
-            "centos_6") 
+        case "$1" in
+            "centos_6")
                 build_centos_6
                 ;;
-            "centos_7") 
+            "centos_7")
                 build_centos_7
                 ;;
-            "centos") 
+            "centos")
                 build_centos
                 ;;
-            "ubuntu_trusty") 
+            "ubuntu_trusty")
                 build_ubuntu_trusty
                 ;;
-            "ubuntu_wily") 
+            "ubuntu_wily")
                 build_ubuntu_trusty
                 ;;
-            "ubuntu_xenial") 
+            "ubuntu_xenial")
                 build_ubuntu_xenial
                 ;;
-            "ubuntu") 
+            "ubuntu")
                 build_ubuntu
                 ;;
-            "opensuse_harlequin") 
+            "opensuse_harlequin")
                 build_opensuse_harlequin
                 ;;
-            "opensuse_leap") 
+            "opensuse_leap")
                 build_opensuse_leap
                 ;;
-            "opensuse") 
+            "opensuse")
                 build_opensuse
                 ;;
             "all")
                 build_all
                 ;;
             *)
-                echo "unknown type" 
+                echo "unknown type"
                 ;;
         esac
         shift

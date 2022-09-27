@@ -6,38 +6,38 @@
   tags: [influxdb, configure]
 
 - name: Start the InfluxDB service
-  service:
+  ansible.builtin.service:
     name: influxdb
     state: restarted
-    enabled: yes
+    enabled: true
   register: influxdb_started
   when: influxdb_start_service
 
 - name: Wait for InfluxDB to come up
-  wait_for:
+  ansible.builtin.wait_for:
     host: "{{ influxdb_bind_hostname | default(\"localhost\", true) }}"
     port: "{{ influxdb_http_port }}"
     delay: 5
     timeout: 30
   when: influxdb_started.changed and influxdb_start_service
-  ignore_errors: yes
+  ignore_errors: true
   register: influxdb_start_attempt
 
 - name: Run tail on log
-  command: tail /var/log/influxdb/influxd.log
+  ansible.builtin.command: tail /var/log/influxdb/influxd.log
   register: influxdb_tail_output
-  when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
+  when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed
 
 - name: Show log output
-  debug:
+  ansible.builtin.debug:
     msg: "{{ influxdb_tail_output.stdout_lines }}"
-  when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
+  when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed
 
 - name: Assert status of InfluxDB service
-  assert:
+  ansible.builtin.assert:
     that:
       - "influxdb_start_attempt == 0"
-  when: influxdb_started.changed and influxdb_start_service and influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
+  when: influxdb_started.changed and influxdb_start_service and influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed
 
 - include: demo.yml
   tags: [influxdb, demo]

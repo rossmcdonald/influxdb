@@ -2,7 +2,7 @@
 
 # Whether or not the playbook is run locally (changes clustering and testing logic slightly)
 # This should only be set in the Vagrantfile and not modified elsewhere
-is_vagrant: no
+is_vagrant: false
 
 # By default, the InfluxData package repository will be used for installation. Alternatively,
 # if you have a specific package/version you want to install from, you can specify a package
@@ -12,16 +12,16 @@ influxdb_install_url:
 
 # Whether or not to purge peer data on each run (useful for cluster testing). NOTE: This will
 # cause catastrophic data loss on an active cluster/instance, so use caution.
-influxdb_purge_peer_data: no
+influxdb_purge_peer_data: false
 
-# If yes, service will be started. Will not be started if set to no.
-influxdb_start_service: yes
+# If true, service will be started. Will not be started if set to no.
+influxdb_start_service: true
 
-# If yes, will overwrite the packaged configuration with an Asnible/jinja2 template
-influxdb_template_configuration: yes
+# If true, will overwrite the packaged configuration with an Asnible/jinja2 template
+influxdb_template_configuration: true
 
-# If yes, will run a templatized stress test against a target instance
-influxdb_run_stress: no
+# If true, will run a templatized stress test against a target instance
+influxdb_run_stress: false
 # Destination for influx_stress metrics (ie http://localhost:8086)
 influxdb_stress_metric_endpoint:
 # Destination database for influx_stress metrics

@@ -1,24 +1,24 @@
 ---
-- name: purge metaid
-  file: 
+- name: Purge metaid
+  ansible.builtin.file:
     path: /var/opt/influxdb/meta/id
     state: absent
 
-- name: purge raftdb
-  file:
+- name: Purge raftdb
+  ansible.builtin.file:
     path: /var/opt/influxdb/meta/raft.db
     state: absent
 
-- name: purge peers
-  file:
+- name: Purge peers
+  ansible.builtin.file:
     path: /var/opt/influxdb/meta/peers.json
     state: absent
 
-- name: restart influxdb
-  service: 
+- name: Restart influxdb
+  ansible.builtin.service:
     name: influxdb
     state: restarted
 
-- name: pause
-  pause:
+- name: Pause
+  ansible.builtin.pause:
     seconds: 3

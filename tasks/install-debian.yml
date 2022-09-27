@@ -1,6 +1,6 @@
 ---
 - name: Install any necessary dependencies [Debian/Ubuntu]
-  apt: 
+  ansible.builtin.apt:
     name:
       - python3-httplib2
       - python3-apt
@@ -8,44 +8,47 @@
       - apt-transport-https
       - gpg
       - gpg-agent
-    state: present 
-    update_cache: yes 
+    state: present
+    update_cache: true
     cache_valid_time: 3600
-    
+
 - name: Install any necessary PIP dependencies [Debian/Ubuntu]
-  apt: 
+  ansible.builtin.apt:
     name: python-pip
-    state: present 
-    update_cache: yes 
+    state: present
+    update_cache: true
     cache_valid_time: 3600
   when: influxdb_install_python_client
 
 - name: Import InfluxData GPG signing key [Debian/Ubuntu]
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://repos.influxdata.com/influxdb.key
     state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Add InfluxData repository [Debian/Ubuntu]
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ influxdb_install_version }}
     state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB packages [Debian/Ubuntu]
-  apt: 
+  ansible.builtin.apt:
     name: influxdb
-    state: latest
-    update_cache: yes
+    state: present
+    update_cache: true
     cache_valid_time: 3600
   when: influxdb_install_url is not defined or influxdb_install_url == None
-  
+
 - name: Download InfluxDB package via URL [Debian/Ubuntu]
-  command: curl -o /tmp/influxdb-ansible-download.deb {{ influxdb_install_url }}
+  ansible.builtin.get_url:
+    url: "{{ influxdb_install_url }}"
+    dest: /tmp/influxdb-ansible-download.deb
+    mode: 0755
   when: influxdb_install_url is defined and influxdb_install_url != None
 
 - name: Install downloaded InfluxDB package [Debian/Ubuntu]
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/influxdb-ansible-download.deb
     state: present
   when: influxdb_install_url is defined and influxdb_install_url != None

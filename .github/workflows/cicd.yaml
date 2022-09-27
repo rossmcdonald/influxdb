@@ -1,0 +1,19 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+jobs:
+  lint:
+    name: lint & check formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint Ansible Playbook
+        uses: ansible/ansible-lint-action@main
+        with:
+          targets: "./"
+          args: "-q"
+

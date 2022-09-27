@@ -8,20 +8,29 @@
 - include: install-debian.yml
   when: ansible_os_family == "Debian"
 
+- name: Get the package facts
+  ansible.builtin.package_facts:
+    manager: "auto"
+
+- name: Show package version
+  ansible.builtin.debug: var=ansible_facts.packages.influxdb[0].version
+
 - name: Install InfluxDB python client package [PIP]
-  pip: >
+  ansible.builtin.pip: >
     name=influxdb
     state={{ influxdb_python_client_state | default(omit) }}
     version={{ influxdb_python_client_version | default(omit) }}
   when: influxdb_install_python_client
 
 - name: Capture InfluxDB version information
-  command: influxd version
+  ansible.builtin.command: influxd version
   register: influxdb_runtime_version_raw
   check_mode: false
+  tags:
+    - skip_ansible_lint
 
 - name: Capture InfluxDB version, branch, and commit
-  set_fact:
-    influxdb_runtime_version: "{{ influxdb_runtime_version_raw.stdout.split()[1].replace('v','') }}"
+  ansible.builtin.set_fact:
+    influxdb_runtime_version: "{{ influxdb_runtime_version_raw.stdout.split()[1].replace('v', '') }}"
     influxdb_runtime_branch: "{{ influxdb_runtime_version_raw.stdout.split()[3] }}"
     influxdb_runtime_commit: "{{ influxdb_runtime_version_raw.stdout.split()[4] }}"

@@ -1,15 +1,16 @@
 ---
 - name: Set configuration directory path
-  file:
+  ansible.builtin.file:
     path: "{{ influxdb_configuration_dir }}"
     state: directory
+    mode: 0755
 
 - name: Set templatized InfluxDB configuration
-  template: 
-    src: influxdb.conf.j2 
+  ansible.builtin.template:
+    src: influxdb.conf.j2
     dest: "{{ influxdb_configuration_dir }}/influxdb.conf"
-    force: yes
-    backup: yes
+    force: true
+    backup: true
     owner: influxdb
     group: influxdb
     mode: 0744

@@ -5,7 +5,7 @@ RUN yum install -y wget && \
     wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm && \
     rpm -ivh epel-release-latest-6.noarch.rpm && \
     rm -f epel-release-latest-6.noarch.rpm
-    
+
 RUN yum install -y ansible
 
 ENV PROJECT_DIR /root
