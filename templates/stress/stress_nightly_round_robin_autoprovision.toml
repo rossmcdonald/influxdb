@@ -80,9 +80,9 @@
     [read.query_generator.basic]
 #      # Template of the query that will be ran against the instance
       #template = "SELECT value+value FROM cpu where host='server-%v'"
-      
+
       template = "SELECT user / steal FROM cpu where host='server-%v'"
-      
+
       # How many times the templated query will be ran
       #query_count = 250
       query_count = {{ stress_query_count }}

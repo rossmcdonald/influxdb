@@ -1,15 +1,19 @@
 ---
 - name: Check to see which databases already exist
-  command: "{{ influxdb_binary_path }}/influx -execute 'show databases'"
+  ansible.builtin.command: "{{ influxdb_binary_path }}/influx -execute 'show databases'"
   register: db_listing
-  changed_when: no
+  changed_when: false
+  tags:
+    - skip_ansible_lint
 
 - name: Create demo database
-  command: "{{ influxdb_binary_path }}/influx -execute 'CREATE DATABASE {{ influxdb_sample_database_name }}'"
+  ansible.builtin.command: "{{ influxdb_binary_path }}/influx -execute 'CREATE DATABASE {{ influxdb_sample_database_name }}'"
   when: db_listing.stdout.find("{{ influxdb_sample_database_name }}") == -1
+  tags:
+    - skip_ansible_lint
 
 - name: Load demo data
-  command: "curl -XPOST http://localhost:8086/write?db={{ influxdb_sample_database_name }} --data-binary '{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}'"
+  ansible.builtin.command: "curl -XPOST http://localhost:8086/write?db={{ influxdb_sample_database_name }} --data-binary '{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}'"
   with_sequence: start=1 end=10
-  
-
+  tags:
+    - skip_ansible_lint

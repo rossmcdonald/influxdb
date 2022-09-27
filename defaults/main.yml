@@ -6,20 +6,20 @@ influxdb_install_version: stable
 # NOTE:
 #   - Do not attempt to cluster previously-unclustered servers. This can lead to data loss.
 #   - This will overwrite your /etc/default/influxdb file (though it makes a backup)
-influxdb_cluster_servers: no
+influxdb_cluster_servers: false
 # When clustering is enabled, whether or not to overwrite the /etc/hosts file with raw
 # IPs (may be useful if no DNS resolution).
-influxdb_overwrite_hosts_file: no
+influxdb_overwrite_hosts_file: false
 
 # Whether to load sample data (randomly generated integers) into a test database
 # NOTE: sample data cannot be loaded if authentication is enabled
-influxdb_load_sample_data: no
+influxdb_load_sample_data: false
 influxdb_sample_database_name: sample_database
 influxdb_sample_measurement_name: random_ints
 
 influxdb_bind_hostname: ''
 
-influxdb_install_python_client: no
+influxdb_install_python_client: false
 
 # NOTE: Since Ansible uses Python on the backend, all boolean values are capitalized when being
 # rendered (which is not valid TOML). To get around this, make sure you quote any boolean values
@@ -33,7 +33,7 @@ influxdb_configuration_dir: /etc/influxdb
 ## Meta Settings
 influxdb_meta_enabled: "true"
 influxdb_meta_dir: /var/lib/influxdb/meta
-influxdb_meta_hostname: 
+influxdb_meta_hostname:
 influxdb_meta_port: 8088
 influxdb_meta_http_port: 8091
 influxdb_meta_retention_autocreate: "true"

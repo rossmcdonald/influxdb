@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
       machine.vm.network "private_network", type: "dhcp"
       # machine.vm.network "public_network"
       # machine.vm.network "public_network", :bridge => 'en0: Wi-Fi (AirPort)'
-      
+
       machine.vm.provider "virtualbox" do |v|
         v.memory = 1024
         v.cpus = 1
@@ -40,7 +40,7 @@ Vagrant.configure(2) do |config|
           }
         end
       end
-      
+
     end
   end
 end

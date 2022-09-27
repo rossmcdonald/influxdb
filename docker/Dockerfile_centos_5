@@ -7,7 +7,7 @@ RUN yum install -y wget && \
     rpm -ivh epel-release-5-4.noarch.rpm && \
     rm -f epel-release-5-4.noarch.rpm && \
     yum install -y python26 gcc make
-    
+
 RUN wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py && \
     python26 get-pip.py && \
     rm -f get-pip.py
