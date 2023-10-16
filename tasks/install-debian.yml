@@ -26,11 +26,12 @@
     state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
-- name: Add InfluxData repository [Debian/Ubuntu]
-  apt_repository:
-    repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ influxdb_install_version }}
-    state: present
-  when: influxdb_install_url is not defined or influxdb_install_url == None
+# not needed anymore on debian >= 12
+# - name: Add InfluxData repository [Debian/Ubuntu]
+#   apt_repository:
+#     repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ influxdb_install_version }}
+#     state: present
+#   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB packages [Debian/Ubuntu]
   apt: 
