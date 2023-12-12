@@ -1,8 +1,8 @@
 ---
-- include: install.yml
+- include_tasks: install.yml
   tags: [influxdb, install]
 
-- include: configure.yml
+- include_tasks: configure.yml
   tags: [influxdb, configure]
 
 - name: Start the InfluxDB service
@@ -39,12 +39,12 @@
       - "influxdb_start_attempt == 0"
   when: influxdb_started.changed and influxdb_start_service and influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
 
-- include: demo.yml
+- include_tasks: demo.yml
   tags: [influxdb, demo]
   when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
 
-- include: verify.yml
+- include_tasks: verify.yml
   tags: [influxdb, verify]
 
-- include: stress.yml
+- include_tasks: stress.yml
   tags: [influxdb, stress]
