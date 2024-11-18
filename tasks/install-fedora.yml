@@ -20,7 +20,7 @@
 
 - name: Install InfluxDB packages [RHEL/Fedora]
   dnf: 
-    name: influxdb
+    name: "{{ influxdb_install_package }}"
     state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
